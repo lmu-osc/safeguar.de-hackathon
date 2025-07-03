@@ -2,7 +2,7 @@ See [Content Style Guide](https://www.lmu.de/de/die-lmu/struktur/zentrale-univer
 
 ---
 
-**Subject**: Safeguarding Research Data Hackathon (Aug 7)
+**Subject**: Data Under Threat — Join the Data Rescue Hackathon (Aug 7)
 
 ---
 
@@ -12,21 +12,30 @@ the Trump administration has aggressively removed scientific and governmental re
 
 While some European institutions start backing up at-risk rsearch data, the data rescue movement is driven by grassroots efforts like the "Data Rescue Project" and the "Safeguarding Research" initiative, who have mobilized volunteers, librarians, and scientists to download and archive these resources before they are lost forever.
 
-The LMU Open Science Center is running a hackathon where we support, hands-on, these data rescue projects.
+## 🚀 Join the LMU Open Science Center Hackathon
 
-We aim to ...
+At this hands-on event, we will directly support these data rescue efforts. Here’s what we aim to do together:
 
-- install a BitTorrent client on participants’ machines to begin seeding and safeguarding research datasets
-- repurpose old hardware — such as 2.5" HDDs, Raspberry Pis, or laptops - by installing Linux and using them as dedicated rescue nodes
-- enhace documentation and develop one-click installation scripts to make node deployment easy across systems
+- **Learn & Build**: Install a BitTorrent client on your own machine to to seed and safeguard critical research datasets.
+- **Repurpose Old Hardware**: Turn old 2.5" HDDs, Raspberry Pis, or laptops into dedicated data rescue nodes by installing Linux and setting up archiving tools.
+- **Improve Tools & Docs**: Write better documentation and develop one-click installation scripts to simplify deployment on any system.
 
-A note: While a hackathon is often focused on technical solutions, this event is explicitly open to all interested people. Parts of the hackathon are indeed software and hardware focused, but we also need people who can help with outreach, documentation, and coordination. So if you have ideas or skills in these areas, please join us!
+**When**: Thursday, 7.8.2025, 16:00 - 19:00 
+
+**Where**: Leopoldstr. 13, 80802 Munich, room 3322
+
+## 🤝 Open to Everyone — Not Just Coders
+
+While some parts are technical, we welcome everyone to contribute to: Outreach, Documentation, Coordination, Creative ideas.
+
 
 Let’s work together to preserve scientific knowledge and build a resilient, community-powered data infrastructure.
 
 **If you are interested in joining the project (regardless if you can attend this specific hackathon or not) please add yourself to this short online survey: TODO LINK.**
 
-(You can also show up spontaenously at the hackathon, but it would be great to know how many people to expect.)
+(You can also join spontaneously, but signing up helps us plan, and registered participants might receive some follow-up information!)
 
 Best regards,
-Felix Schönbrodt
+
+Felix Schönbrodt & Philipp Sckopke 
+LMU Open Science Center
