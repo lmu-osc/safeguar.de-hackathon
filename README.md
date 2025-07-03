@@ -17,3 +17,5 @@ The LMU Open Science Center is running a hackathon where we support, hands-on, t
 - Tasks:
   - [Create a one-shot installation script for the SciOp data rescue node for a Raspberry Pi](tasks/one-shot-installation-script.md)
   - Create an full RPi image with all necessary software installed
+ 
+### How to register ...
