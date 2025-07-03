@@ -16,7 +16,7 @@ While some European institutions start backing up at-risk rsearch data, the data
 
 At this hands-on event, we will directly support these data rescue efforts. Here’s what we aim to do together:
 
-- **Learn & Build**: Install a BitTorrent client on your own machine to to seed and safeguard critical research datasets.
+- **Learn & Build**: Install a BitTorrent client on your own machine to seed and safeguard critical research datasets.
 - **Repurpose Old Hardware**: Turn old 2.5" HDDs, Raspberry Pis, or laptops into dedicated data rescue nodes by installing Linux and setting up archiving tools.
 - **Improve Tools & Docs**: Write better documentation and develop one-click installation scripts to simplify deployment on any system.
 
