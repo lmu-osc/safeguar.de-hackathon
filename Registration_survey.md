@@ -13,13 +13,14 @@
 
 **I bring my own hardware to the hackathon.**
 
+- Yes / No.
 - Open text field: Please describe the kind of hardware (e.g.: "an old laptop", "a Raspberry Pi with an external harddrive")
 
 **What are your main interests in the hackathon? (Multiple choice):**
 
 - Add data rescueing capabilities to my own laptop
 - Work on software (e.g., build one-shot installation scripts for easy deployment)
-- Work on hardware (e.g., add a HDD to an RPi; install Linux on )
+- Work on hardware (e.g., add a HDD to an RPi; develop a solar-powered low-power instance)
 - Learn how to scrape an existing data set and to add it to the swarm
 - Help to improve the [https://sciop.net](https://sciop.net) documentation
-- Create flyers, memes, infographics
+- Create flyers, memes, infographics, social media posts
