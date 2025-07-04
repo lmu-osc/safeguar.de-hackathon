@@ -1,6 +1,8 @@
-**Goal**: Install a one-click installation script for the SciOp data rescue node, which does all necessary setup steps automatically.
+# Task: Create a one-shot installation script for the SciOp data rescue node for a Raspberry Pi
 
-**Prerequisites**: We assume a freshly flashed headless Raspberry Pi with a working internet connection. The script should be able to run on any Linux system, but we will test it on a Raspberry Pi OS Lite installation.
+**Goal**: Create a one-click installation script for the SciOp data rescue node, which does all necessary setup steps automatically.
+
+**Prerequisites**: We assume a freshly flashed headless Raspberry Pi with a working internet connection and a HDD physically attached. The script should be able to run on any Linux system, but we will test it on a Raspberry Pi OS Lite installation.
 
 **Challenges**: 
 
