@@ -10,7 +10,7 @@ Dear colleagues,
 
 the Trump administration has aggressively removed scientific and governmental research data from public access, purging thousands of web pages and datasets related to climate, health, demographics, LGBTQ + issues, and more — silently erasing vital knowledge that underpins scientific progress.
 
-While some European institutions start backing up at-risk rsearch data, the data rescue movement is driven by grassroots efforts like the "Data Rescue Project" and the "Safeguarding Research" initiative, who have mobilized volunteers, librarians, and scientists to download and archive these resources before they are lost forever.
+While some European institutions start backing up at-risk research data, the data rescue movement is driven by grassroots efforts like the "Data Rescue Project" and the "Safeguarding Research & Culture" initiative, who have mobilized volunteers, librarians, and scientists to download and archive these resources before they are lost forever.
 
 ## 🚀 Join the LMU Open Science Center Hackathon
 
@@ -31,9 +31,8 @@ While some parts are technical, we welcome everyone to contribute to: Outreach, 
 
 Let’s work together to preserve scientific knowledge and build a resilient, community-powered data infrastructure.
 
-**If you are interested in joining the project (regardless if you can attend this specific hackathon or not) please add yourself to this short online survey: TODO LINK.**
+**If you are interested in joining the project (regardless if you can attend this specific hackathon or not) please add yourself to this short signup form: TODO LINK.**
 
-(You can also join spontaneously, but signing up helps us plan, and registered participants might receive some follow-up information!)
 
 Best regards,
 

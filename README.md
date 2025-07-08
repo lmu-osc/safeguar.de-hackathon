@@ -8,6 +8,25 @@ While some European institutions start backing up at-risk research data [[3]](ht
 
 The LMU Open Science Center is running a hackathon where we support, hands-on, the [safeguar.de](https://safeguar.de) project.
 
+## 🚀 Join the LMU Open Science Center Hackathon
+
+At this hands-on event, we will directly support these data rescue efforts. Here’s what we aim to do together:
+
+- **Learn & Build**: Install a BitTorrent client on your own machine to seed and safeguard critical research datasets.
+- **Repurpose Old Hardware**: Turn old 2.5" HDDs, Raspberry Pis, or laptops into dedicated data rescue nodes by installing Linux and setting up archiving tools.
+- **Improve Tools & Docs**: Write better documentation and develop one-click installation scripts to simplify deployment on any system.
+
+📅 Thursday, 7.8.2025, 16:00 - 19:00 
+
+📍 Leopoldstr. 13, 80802 Munich, room 3322
+
+## 🤝 Open to Everyone — Not Just Coders
+
+While some parts are technical, we welcome everyone to contribute to: Outreach, Documentation, Coordination, Creative ideas.
+
+*Let’s work together to preserve scientific knowledge and build a resilient, community-powered data infrastructure.*
+
+
 ### Quick links
 
 - [Announcement](announcements/LMU-Infodienst.md)
