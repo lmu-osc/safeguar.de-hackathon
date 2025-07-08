@@ -2,6 +2,8 @@
 
 - LMU-Infodienst
 - RSE-MUC email list (https://lists.lrz.de/mailman/listinfo/rse; https://matrix.to/#/#de-rse.org:matrix.org)
+- Our own Carpentries mailing list
+- MCML
 - Bits und Bäume muc/aux
 
 # Outreach

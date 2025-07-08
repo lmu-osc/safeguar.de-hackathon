@@ -32,7 +32,7 @@ While some parts are technical, we welcome everyone to contribute to: Outreach, 
 - [Announcement](announcements/LMU-Infodienst.md)
 - [Schedule](Schedule.md)
 - [Goals](Goals.md)
-- [Registration Survey](Registration_survey.md)
+- [Signup Survey](Signup_survey.md)
 - Tasks:
   - [Create a one-shot installation script for the SciOp data rescue node for a Raspberry Pi](tasks/one-shot-installation-script.md)
   - Create an full RPi image with all necessary software installed

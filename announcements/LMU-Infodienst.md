@@ -31,10 +31,18 @@ While some parts are technical, we welcome everyone to contribute to: Outreach, 
 
 Let’s work together to preserve scientific knowledge and build a resilient, community-powered data infrastructure.
 
-**If you are interested in joining the project (regardless if you can attend this specific hackathon or not) please add yourself to this short signup form: TODO LINK.**
+**You can contribute to the project by
+
+- Donating old hardware and/or
+- Attending the Hackathon
+- Participating in the discussions
+
+Register your interest and stay informed: TODO LINK.**
 
 
 Best regards,
 
 Felix Schönbrodt & Philipp Sckopke 
 LMU Open Science Center
+
+Contact: felix.schoenbrodt@psy.lmu.de

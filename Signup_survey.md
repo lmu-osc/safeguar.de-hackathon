@@ -1,3 +1,10 @@
+**Privacy disclaimer:**
+TODO
+
+**Name and email address**
+
+In order to know who is coming and what your preferences are, please answer the following questions:
+
 **Do you know how to use the terminal (e.g., bash)?**
 
 - What is a "terminal"!?
@@ -33,3 +40,6 @@
 - Create flyers, memes, infographics, social media posts
 - Outreach: Help to spread the word about the data rescue movement
 - Other (please add a comment)
+
+**I want to stay informed about the project.**
+- Yes/no
