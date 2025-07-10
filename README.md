@@ -10,7 +10,7 @@ The LMU Open Science Center is running a hackathon where we support, hands-on, t
 
 ## 🚀 Join the LMU Open Science Center Hackathon
 
-At this hands-on event, we will directly support these data rescue efforts. Here’s what we aim to do together:
+At this hands-on event, we welcome **Henrik Schönemann** (HU Berlin), an initiator of safeguar.de, for an ignition talk. In the practical part, we will directly support the data rescue efforts. Here’s what we aim to do together:
 
 - **Learn & Build**: Install a BitTorrent client on your own machine to seed and safeguard critical research datasets.
 - **Repurpose Old Hardware**: Turn old 2.5" HDDs, Raspberry Pis, or laptops into dedicated data rescue nodes by installing Linux and setting up archiving tools.
@@ -18,24 +18,53 @@ At this hands-on event, we will directly support these data rescue efforts. Here
 
 📅 Thursday, 7.8.2025, 16:00 - 19:00 
 
-📍 Leopoldstr. 13, 80802 Munich, room 3322
+📍 Leopoldstr. 13, 80802 Munich (exact location will be announced to registered participants)
 
 ## 🤝 Open to Everyone — Not Just Coders
 
-While some parts are technical, we welcome everyone to contribute to: Outreach, Documentation, Coordination, Creative ideas.
+While some parts are technical, we welcome everyone to contribute to: Outreach, documentation, coordination, creative ideas.
 
 *Let’s work together to preserve scientific knowledge and build a resilient, community-powered data infrastructure.*
 
 
 ### Quick links
 
-- [Announcement](announcements/LMU-Infodienst.md)
 - [Schedule](Schedule.md)
 - [Goals](Goals.md)
 - [Signup Survey](Signup_survey.md)
 - Tasks:
   - [Create a one-shot installation script for the SciOp data rescue node for a Raspberry Pi](tasks/one-shot-installation-script.md)
   - Create an full RPi image with all necessary software installed
+- [Announcement](announcements/LMU-Infodienst.md)
+
+
+### Tasks / Contributions
+
+-   Gather abandoned hardware (RPis, laptops, external 2.5" HDDs, large 3.5" HDDs) - do this *before* the hackathon
+-   Software development (see also [https://codeberg.org/Safeguarding/sciop/projects](https://codeberg.org/Safeguarding/sciop/projects))
+    -   Linux/bash
+    -   Python
+    -   SQLite
+    -   htmx
+- Scrapign/crawling datasets using [browsertrix-crawler](https://crawler.docs.browsertrix.com) und [scrapy](https://www.scrapy.org)
+-   Knowledge how to make macOS hardware capable to run Linux
+-   Hardware knowledge, e.g.
+    -   optimizing power consumption
+    -   A solar/battery setup
+-   Designing accessible documentation / tutorials (does not necessarily need technical knowledge; more creative and pedagogical skills)
+-   Outreach & community management
+
+### Material that we need
+
+-   BYOD
+-   Old Raspberry Pis
+-   Old Micro-SD cards (at least 1 GB)
+-   Old external HDDs
+-   Old Laptops
+-   Many Cables: Micro-USB --\> Mini-USB
+-   Power strips
+-   Tools (Mini-Screwdrivers)
+
 
 
 ![](img/sciop.png)

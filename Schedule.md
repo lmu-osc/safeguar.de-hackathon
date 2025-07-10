@@ -16,7 +16,7 @@
     -   Teams report on their progress and left-over todos
     -   Talk about next steps: Continue? Have another hackathon meeting? Work asynchronously in-between?
     -   Collect the successes:
-        -   How many terabytes have effectively been added to the swarm, on how many nodes? How many more are within reach?
+        -   How many datasets have effectively been added to the swarm? How many new nodes, with what HDD capacity? How many more are within reach?
         -   What other contributions have been made?
     -   Collect feedback on the hackathon: What worked well? What can be improved?
     -   Outlook: Show next steps (Sciop scraping / How to add new data sets; how to set up a SciOp instance at the LMU OSC; how to set up a solar-powered [HiveSeed](https://codeberg.org/nicebread/HiveSeed))
@@ -30,8 +30,13 @@
 # Tasks / Contributions
 
 -   Gather abandoned hardware (RPis, laptops, external 2.5" HDDs, large 3.5" HDDs) - do this *before* the hackathon
--   Software development (mostly Linux / bash)
--   Knowledge how to make mac Hardware capable to run Linux
+-   Software development (see also [https://codeberg.org/Safeguarding/sciop/projects](https://codeberg.org/Safeguarding/sciop/projects))
+    -   Linux/bash
+    -   Python
+    -   SQLite
+    -   htmx
+- Scrapign/crawling datasets using [browsertrix-crawler](https://crawler.docs.browsertrix.com) und [scrapy](https://www.scrapy.org)
+-   Knowledge how to make macOS hardware capable to run Linux
 -   Hardware knowledge, e.g.
     -   optimizing power consumption
     -   A solar/battery setup
