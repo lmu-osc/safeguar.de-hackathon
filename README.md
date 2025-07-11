@@ -2,6 +2,8 @@
 
 ## A hackathon to build resilient research data rescue nodes that backup at-risk research data
 
+***👉 [Signup Here!](https://surveys.osc.lmu.de/safeguard-hackathon) 👈***
+
 The Trump administration has aggressively removed scientific and governmental research data from public access, purging thousands of web pages and datasets related to climate, health, demographics, LGBTQ + issues, and more — silently erasing vital knowledge that underpins scientific progress [[1]](https://www.ft.com/content/ccb0c850-f466-4b74-8c07-7d01230679a4) [[2]](https://www.newyorker.com/news/the-lede/the-data-hoarders-resisting-trumps-purge).
 
 While some European institutions start backing up at-risk research data [[3]](https://www.uni-bremen.de/universitaet/hochschulkommunikation-und-marketing/pressemitteilungen/detailansicht/uni-bremen-und-awi-retten-wertvolle-wissenschaftliche-us-datenbanken) [[4]](https://absolutelymaybe.plos.org/2025/05/14/germanys-plan-for-an-open-and-independent-pubmed-safety-net/), the data rescue movement is driven by grassroots efforts like the [Data Rescue Project](https://www.datarescueproject.org) and the [Safeguarding Research](https://safeguar.de) initiative, who have mobilized volunteers, librarians, and scientists to download and archive these resources before they are lost forever.
@@ -26,10 +28,11 @@ While some parts are technical, we welcome everyone to contribute to: Outreach, 
 
 *Let’s work together to preserve scientific knowledge and build a resilient, community-powered data infrastructure.*
 
+## 👉 [Signup Here!](https://surveys.osc.lmu.de/safeguard-hackathon) 👈
+
 
 ### Quick links
 
-- 👉 [Signup Survey](https://surveys.osc.lmu.de/safeguard-hackathon)
 - [Schedule](Schedule.md)
 - [Goals](Goals.md)
 - Tasks:
