@@ -35,7 +35,7 @@
     -   Python
     -   SQLite
     -   htmx
-- Scrapign/crawling datasets using [browsertrix-crawler](https://crawler.docs.browsertrix.com) und [scrapy](https://www.scrapy.org)
+- Scraping/crawling datasets using [browsertrix-crawler](https://crawler.docs.browsertrix.com) und [scrapy](https://www.scrapy.org)
 -   Knowledge how to make macOS hardware capable to run Linux
 -   Hardware knowledge, e.g.
     -   optimizing power consumption

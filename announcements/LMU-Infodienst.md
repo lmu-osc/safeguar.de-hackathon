@@ -36,7 +36,7 @@ While some parts are technical, we welcome everyone to contribute to: Outreach, 
 - Attending the Hackathon
 - Participating in the discussions
 
-***Register your interest and stay informed: TODO LINK.***
+***Register your interest and stay informed: https://surveys.osc.lmu.de/safeguard-hackathon***
 
 
 Best regards,

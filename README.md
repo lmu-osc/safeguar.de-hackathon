@@ -29,9 +29,9 @@ While some parts are technical, we welcome everyone to contribute to: Outreach, 
 
 ### Quick links
 
+- 👉 [Signup Survey](https://surveys.osc.lmu.de/safeguard-hackathon)
 - [Schedule](Schedule.md)
 - [Goals](Goals.md)
-- [Signup Survey](Signup_survey.md)
 - Tasks:
   - [Create a one-shot installation script for the SciOp data rescue node for a Raspberry Pi](tasks/one-shot-installation-script.md)
   - Create an full RPi image with all necessary software installed
@@ -46,7 +46,7 @@ While some parts are technical, we welcome everyone to contribute to: Outreach, 
     -   Python
     -   SQLite
     -   htmx
-- Scrapign/crawling datasets using [browsertrix-crawler](https://crawler.docs.browsertrix.com) und [scrapy](https://www.scrapy.org)
+- Scraping/crawling datasets using [browsertrix-crawler](https://crawler.docs.browsertrix.com) und [scrapy](https://www.scrapy.org)
 -   Knowledge how to make macOS hardware capable to run Linux
 -   Hardware knowledge, e.g.
     -   optimizing power consumption

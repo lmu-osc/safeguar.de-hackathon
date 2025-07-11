@@ -8,6 +8,7 @@ We are running a hackathon which will directly support these efforts: Join the g
 
 📦 Data Rescue Hackathon — 7.8.2025, 16:00–19:00
 📍 Leopoldstr. 13, Room 3322, Munich
-👉 Interested? Signup form: [TODO LINK]
+🍕 Free pizza!
+👉 Interested? Signup form: https://surveys.osc.lmu.de/safeguard-hackathon
 
 Whether you’re a coder, a librarian, social media enthusiast, or just curious — everyone can contribute.

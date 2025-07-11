@@ -1,3 +1,5 @@
+The survey is implemented in
+
 **Privacy disclaimer:**
 TODO
 
@@ -41,5 +43,5 @@ In order to know who is coming and what your preferences are, please answer the 
 - Outreach: Help to spread the word about the data rescue movement
 - Other (please add a comment)
 
-**I want to stay informed about the project.**
+**I want to stay informed about the project. Please add my email address to the mailing list.**
 - Yes/no
