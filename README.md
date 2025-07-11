@@ -28,8 +28,11 @@ While some parts are technical, we welcome everyone to contribute to: Outreach, 
 
 *Let’s work together to preserve scientific knowledge and build a resilient, community-powered data infrastructure.*
 
-## 👉 [Signup Here!](https://surveys.osc.lmu.de/safeguard-hackathon) 👈
+### 👉 Signup Here! [https://surveys.osc.lmu.de/safeguard-hackathon](https://surveys.osc.lmu.de/safeguard-hackathon) 👈
 
+Contact: felix.schoenbrodt@psy.lmu.de
+
+---
 
 ### Quick links
 
