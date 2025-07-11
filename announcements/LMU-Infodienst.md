@@ -14,15 +14,15 @@ While some European institutions start backing up at-risk research data, the dat
 
 ## 🚀 Join the LMU Open Science Center Safeguar.de Hackathon
 
-At this hands-on event, we welcome **Henrik Schönemann** (HU Berlin), an initiator of safeguar.de, for an ignition talk. In the practical part, we will directly support the data rescue efforts. Here’s what we aim to do together:
+At this hands-on event, we welcome **Henrik Schönemann** (HU Berlin), an initiator of safeguar.de, for an ignition talk. In the practical part, we will directly support the data rescue efforts:
 
-- **Learn & Build**: Install a BitTorrent client on your own machine to seed and safeguard critical research datasets.
+- **Learn & Build**: Install a BitTorrent client on your own machine to seed and safeguard critical research datasets. Scrape at-risk data sets.
 - **Repurpose Old Hardware**: Turn old 2.5" HDDs, Raspberry Pis, or laptops into dedicated data rescue nodes by installing Linux and setting up archiving tools.
 - **Improve Tools & Docs**: Write better documentation and develop one-click installation scripts to simplify deployment on any system.
 
-**When**: Thursday, 7.8.2025, 16:00 - 19:00 
+**When**: Thursday, 7 August 2025, 4 p.m. to 7 p.m.
 
-**Where**: Leopoldstr. 13, 80802 Munich (exact location will be announced to registered participants)
+**Where**: Leopoldstr. 13, 80802 München (exact location will be announced to registered participants)
 
 ## 🤝 Open to Everyone — Not Just Coders
 

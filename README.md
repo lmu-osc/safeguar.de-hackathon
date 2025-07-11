@@ -8,7 +8,7 @@ While some European institutions start backing up at-risk research data [[3]](ht
 
 The LMU Open Science Center is running a hackathon where we support, hands-on, the [safeguar.de](https://safeguar.de) project.
 
-## 🚀 Join the LMU Open Science Center Hackathon
+## 🚀 Join the LMU Open Science Center Hackathon on August 7, 2025
 
 At this hands-on event, we welcome **Henrik Schönemann** (HU Berlin), an initiator of safeguar.de, for an ignition talk. In the practical part, we will directly support the data rescue efforts. Here’s what we aim to do together:
 
