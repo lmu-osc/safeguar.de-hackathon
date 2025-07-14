@@ -38,9 +38,7 @@ Contact: felix.schoenbrodt@psy.lmu.de
 
 - [Schedule](Schedule.md)
 - [Goals](Goals.md)
-- Tasks:
-  - [Create a one-shot installation script for the SciOp data rescue node for a Raspberry Pi](tasks/one-shot-installation-script.md)
-  - Create an full RPi image with all necessary software installed
+- [Tasks](Tasks.md)
 - [Announcement](announcements/LMU-Infodienst.md)
 
 

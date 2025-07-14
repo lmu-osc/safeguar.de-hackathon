@@ -1,4 +1,4 @@
-The survey is implemented in
+The survey is implemented in *formr*, which defines surveys in a [Google Sheet](https://docs.google.com/spreadsheets/d/1a5M1byHaIuDaFBpFYS9Ym_QBek6ZuPHI1fxfznlSM70/edit?usp=sharing).
 
 **Privacy disclaimer:**
 TODO
@@ -19,6 +19,11 @@ In order to know who is coming and what your preferences are, please answer the 
 - logged into a remote server via SSH
 - created a SSH key pair
 
+**Your experiences with Git/Github: I have already ...** (check all that apply)
+
+- worked with git
+- a Github account
+- worked with Github
 
 **I can donate old hardware.**
 

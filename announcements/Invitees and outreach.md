@@ -1,7 +1,7 @@
 # Whom to invite locally?
 
 - OSC email list + Carpentries mailing list + RSE list (together in one email to avoid double posting)
-- RSE-MUC matrix Channel: 
+- RSE-MUC Matrix Channel
 
 - LMU-Infodienst
 - MCML: Send email to events@mcml.ai and they add it on their calendar.

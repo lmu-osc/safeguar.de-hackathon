@@ -12,7 +12,7 @@ the Trump administration has aggressively removed scientific and governmental re
 
 While some European institutions start backing up at-risk research data, the data rescue movement is driven by grassroots efforts like the "Data Rescue Project" and the "Safeguarding Research & Culture" initiative, who have mobilized volunteers, librarians, and scientists to download and archive these resources before they are lost forever.
 
-## 🚀 Join the LMU Open Science Center Safeguar.de Hackathon
+## Join the LMU Open Science Center Safeguar.de Hackathon
 
 At this hands-on event, we welcome **Henrik Schönemann** (HU Berlin), an initiator of safeguar.de, for an ignition talk. In the practical part, we will directly support the data rescue efforts:
 
@@ -24,19 +24,17 @@ At this hands-on event, we welcome **Henrik Schönemann** (HU Berlin), an initia
 
 **Where**: Leopoldstr. 13, 80802 München (exact location will be announced to registered participants)
 
-## 🤝 Open to Everyone — Not Just Coders
+## Open to Everyone — Not Just Coders
 
 While some parts are technical, we welcome everyone to contribute to: Outreach, documentation, coordination, creative ideas.
 
-*Let’s work together to preserve scientific knowledge and build a resilient, community-powered data infrastructure.*
-
-**You can contribute to the project by ...**
+Let’s work together to preserve scientific knowledge and build a resilient, community-powered data infrastructure. You can contribute to the project by ...
 
 - Donating old hardware and/or
 - Attending the Hackathon
 - Participating in the discussions
 
-***Register your interest and stay informed: https://surveys.osc.lmu.de/safeguard-hackathon***
+***Register your interest and stay informed: [https://surveys.osc.lmu.de/safeguard-hackathon](https://surveys.osc.lmu.de/safeguard-hackathon)***
 
 
 Best regards,
