@@ -1,0 +1,149 @@
+[
+  {
+    "objectID": "slides/slides.html",
+    "href": "slides/slides.html",
+    "title": "Slides",
+    "section": "",
+    "text": "Rescueing Research Data with a BitTorrent Swarm\n\n\nA Conceptual Introduction\n\n\n\n\n\n\n\n\n\n\n\nNo matching items\n Back to top"
+  },
+  {
+    "objectID": "recipes/recipes.html",
+    "href": "recipes/recipes.html",
+    "title": "Recipes",
+    "section": "",
+    "text": "Convert old laptops into Research Data Rescue Nodes\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCreating a SciOp Research Data Rescue Node with a Raspberry Pi\n\n\n\n\n\n\n\n\n\n\n\nNo matching items\n Back to top"
+  },
+  {
+    "objectID": "recipes/BT_on_Raspi.html",
+    "href": "recipes/BT_on_Raspi.html",
+    "title": "Creating a SciOp Research Data Rescue Node with a Raspberry Pi",
+    "section": "",
+    "text": "This tutorial has been tried out on a Raspberry Pi Zero 2 W. This is the cheapest, smallest and most efficient Raspberry Pi that can run a full Linux distribution, and it has enough power to run a small NAS with an external HDD. However, the same steps should also work on other Raspberry Pi models, such as the Raspberry Pi 3 or 4, which have more processing power and memory.\nWe will create a “headless” machine, which means it does not have a monitor or keyboard attached, but can be accessed via SSH. This is ideal for a small NAS that runs in the background and can be accessed remotely."
+  },
+  {
+    "objectID": "recipes/BT_on_Raspi.html#shopping-list",
+    "href": "recipes/BT_on_Raspi.html#shopping-list",
+    "title": "Creating a SciOp Research Data Rescue Node with a Raspberry Pi",
+    "section": "0. Shopping list",
+    "text": "0. Shopping list\nRecycle existing hardware as much as possible!\n\nRaspberry Pi Zero 2 W: ~15 €\nA micro-SD card with a minimal capacity of 4 GB: ~5 €\n\nNote: The RPi cannot boot from an external HDD, so you need a micro-SD card as internal storage for installing the OS and necessary packages.\n\nAn external 2.5” HDD or SSD\nA cable that connects the HDD to the micro-USB port of the RPi\nA USB power supply with 5V and at least 2A output: ~5 €\n\nNote: It has been reported that some setups needed 5.3V to have a stable power supply during HDD startup."
+  },
+  {
+    "objectID": "recipes/BT_on_Raspi.html#install-the-os-on-the-micro-sd-card",
+    "href": "recipes/BT_on_Raspi.html#install-the-os-on-the-micro-sd-card",
+    "title": "Creating a SciOp Research Data Rescue Node with a Raspberry Pi",
+    "section": "1. Install the OS on the micro-SD card",
+    "text": "1. Install the OS on the micro-SD card\nDownload and start the Raspberry Pi Imager.\n\nSelect Raspberry Pi Model –&gt; Raspberry Pi Zero 2 W\nSelect OS –&gt; Raspberry Pi OS (other) –&gt; Raspberry Pi OS Lite (64-bit). This should have ~0.4 GB.\n\nIn the next step, you should:\n\nConfigure WiFi\nConfigure the hostname\n\nIn this tutorial we use HiveSeed as hostname.\n\nEnable SSH (either via password or SSH key)\nAdd a user and a password\n\nIn this tutorial we use pi as username and raspberry as password, but you should change that to something more secure.\n\n\nPut the prepared micro-SD card into the RPi, power on, and log in via SSH. Your user name and password are the ones you configured in the previous step:\nssh pi@HiveSeed.local\nWhen you are logged in, you first should update the system:\nsudo apt update\nsudo apt upgrade -y\nOptionally, you can enable SSH key authentication for a more secure and convenient login:\nmkdir ~/.ssh\nchmod 700 ~/.ssh\nnano ~/.ssh/authorized_keys\nCopy your public SSH key into the authorized_keys file. You can print the key with the following command in a terminal on your local machine:\ncat ~/.ssh/id_rsa.pub\nThen paste the key into the authorized_keys file on the RPi. Save and exit the file editor (in nano, press CTRL + X, then Y to confirm saving, and ENTER to exit)."
+  },
+  {
+    "objectID": "recipes/BT_on_Raspi.html#enable-the-external-hdd",
+    "href": "recipes/BT_on_Raspi.html#enable-the-external-hdd",
+    "title": "Creating a SciOp Research Data Rescue Node with a Raspberry Pi",
+    "section": "2. Enable the external HDD",
+    "text": "2. Enable the external HDD\nConnect the external HDD to the RPi via USB (be careful: there is one micro-USB port for powering the RPi Zero 2 and one for data transfer - they are not exchangeable).\nShow the connected storage devices:\nsudo fdisk -l\nThe output first shows multiple partitions on the internal micro-SD card, and then the external HDD. In our case, we attached a 500GB HDD and see this output:\n[...]\nDisk /dev/sda: 465.76 GiB, 500107862016 bytes, 976773168 sectors\nDisk model: 5000BMV External\nUnits: sectors of 1 * 512 = 512 bytes\nSector size (logical/physical): 512 bytes / 512 bytes\nI/O size (minimum/optimal): 512 bytes / 512 bytes\nDisklabel type: gpt\nDisk identifier: 5A63CF10-2BE1-499E-818D-28AB87D27648\n\nDevice      Start       End   Sectors   Size Type\n/dev/sda1      40    409639    409600   200M EFI System\n/dev/sda2  411648 976510975 976099328 465.4G Microsoft basic data\nIn this example, the device name of the external HDD is /dev/sda, but it might be different on your system. Make sure to replace /dev/sda with the correct device name in the following commands.\n\nCreate a new partition table\nThe previous formatting of our HDD was done with Windows, so it has a Microsoft basic data partition type. It also has an EFI System partition, which is not needed for our use case.\nNext, we will reformat it to use it with the RPi. This will erase all data!\nsudo fdisk /dev/sda\nThis utility allows you to create, delete, and modify partitions on the disk. Follow these steps:\n\nPress p to print the current partition table.\nPress d to delete all existing partitions. You might need to do this multiple times if there are multiple partitions.\nPress n to create a new partition.\n\nPress Enter three times to accept the default partition number, the default first sector, and the default last sector.\n\nPress p again to check the new partition table.\nUp to this step, nothing has been written to the disk yet - we just planned the partioning steps.\n\nYou can still exit without saving changes by pressing q.\nIf you are satisfied with the new partition table and ready to erase all data, press w to write the changes to the disk and exit.\n\n\nIf you re-run sudo fdisk -l, you should see the new partition table with a single partition. In our case, it looks like this (note the Linux filesystem type on dev/sda1):\nDevice     Start       End   Sectors   Size Type\n/dev/sda1   2048 976773119 976771072 465.8G Linux filesystem\n\n\nFormat the new partition\nHIVESEEDSTORAGE is the name of the partition we will create - you can choose a different name if you like.\nsudo mkfs.ext4 -L HIVESEEDSTORAGE -E lazy_itable_init=0,lazy_journal_init=0 /dev/sda1\nThis formatting avoids the ext4lazyinit process, which consumes a low I/O bandwidth (approx. 11-13 Mb/s) in idle mode.\nFinally, mount the drive (only then it is accessible):\n# create a mount point on the RPi SD card\nsudo mkdir /mnt/HDD1\n\n# mount the partition to that mount point\nsudo mount /dev/sda1 /mnt/HDD1\n\n\nAutomatically mount the HDD on boot\nTo make the mount persistent across reboots, you can add an entry to the /etc/fstab file. For that, we need to find the UUID of the HDD:\nsudo blkid -o list\nIn my case, the output looks like this:\ndevice                    fs_type    label       mount point                   UUID\n--------------------------------------------------------------------------------------------------------------------\n/dev/mmcblk0p1            vfat       bootfs      /boot/firmware                EC36-4DE1\n/dev/mmcblk0p2            ext4       rootfs      /                             d4cc7d63-da78-48ad-9bdd-64ffbba449a8\n/dev/sda1                 ext4       HIVESEEDSTORAGE (not mounted)             89d8ab88-7a9e-495e-8dbb-3e9423eea43d\nCopy the UUID and add this line (with your UUID) to /etc/fstab:\nUUID=89d8ab88-7a9e-495e-8dbb-3e9423eea43d  /mnt/HDD1 ext4 defaults 0 2\nsudo nano /etc/fstab\nRun sudo reboot, re-login via SSH and sudo blkid -o list to verify that the HDD is automatically mounted on boot."
+  },
+  {
+    "objectID": "recipes/BT_on_Raspi.html#install-the-qbittorrent-client",
+    "href": "recipes/BT_on_Raspi.html#install-the-qbittorrent-client",
+    "title": "Creating a SciOp Research Data Rescue Node with a Raspberry Pi",
+    "section": "3. Install the qbitTorrent client",
+    "text": "3. Install the qbitTorrent client\nTo install the qbitTorrent client, we roughly follow this guide. First, install the necessary packages:\nsudo apt install qbittorrent-nox -y\nThe -nox option installs the headless version of qbitTorrent, which is suitable for running on a server without a graphical user interface. You can still access it via a web interface. The -y option automatically answers “yes” to any prompts during the installation.\nYou can start the qbitTorrent client with the following command:\nqbittorrent-nox\nIt shows the initial setup instructions, including the default username and password (usually admin / adminadmin). It also tells you the URL to access the web interface, which is usually http://&lt;your_rpi_ip&gt;:8080.\nYou can now open a browser and navigate to the qbitTorrent web interface, in my case http://hiveseed.local:8080\n\nCreate a background service for the qbitTorrent client\nWhen you run the command qbittorrent-nox, it starts the qbitTorrent client in the foreground, which means it blocks the terminal session. This is fine for testing, but not for a production setup.\nIn the terminal, you see that the current session is “blocked” while the client is running (you can exit the client with Ctrl + C). But we want the client to run in the background, so we can use the terminal for other commands, and also that it continues to run after we log out from the SSH session. To do that, we need to …\n\nCreate a new user for the client to operate under (we’ll call it qbuser). Furthermore, we put our main user pi into the qbuser group, so that it can access the files created by the qbitTorrent client:\n\nsudo useradd -r -m qbuser\nsudo usermod -a -G qbuser pi\n\n#verify the group membership: you should see \"qbuser\" in the list of groups for the user \"pi\"\ngroups pi\n\nAdd a new service that runs the qbitTorrent client in the background. For that, we use the nano editor to create a new systemd service file: sh sudo nano /etc/systemd/system/qbittorrent.service\n\nAdd the following content to that file (you can copy and paste it into the nano editor):\n[Unit]\nDescription=qBittorrent\nAfter=network.target\n\n[Service]\nType=forking\nUser=qbuser\nGroup=qbuser\nUMask=002\nExecStart=/usr/bin/qbittorrent-nox -d --webui-port=8080\nRestart=on-failure\n\n[Install]\nWantedBy=multi-user.target\nWith everything entered, save the file by pressing CTRL + X, then Y(Yes), followed by the ENTER key.\nStart the qbitTorrent service and enable it to start on boot:\nsudo systemctl start qbittorrent\nsudo systemctl enable qbittorrent\n\n\nConfiguring qbitTorrent for SciOp\nFirst, we create the necessary directories on the external HDD and make them accessible for the qbuser:\nsudo mkdir /mnt/HDD1/Downloads\nsudo mkdir /mnt/HDD1/Downloads/temp\nsudo mkdir /mnt/HDD1/torrentfiles\n\nsudo chmod -R 777 /mnt/HDD1/Downloads\n(We use a permissive 777 permission here for simplicity, but you might want to adjust it to be more secure, e.g. 775 or 770, depending on your use case. As SciOp only shares public research data, this should be fine for now.)\nTODO:\n\nIn the qbittorrent web interface, set the directories to /mnt/HDD1/Downloads (Downloads), /mnt/HDD1/Downloads/temp (incomplete downloads), and /mnt/HDD1/torrentfiles (torrent files).\nLimit the disk quota to, say, 80% of the HDD size"
+  },
+  {
+    "objectID": "recipes/BT_on_Raspi.html#misc",
+    "href": "recipes/BT_on_Raspi.html#misc",
+    "title": "Creating a SciOp Research Data Rescue Node with a Raspberry Pi",
+    "section": "Misc",
+    "text": "Misc\n\nExpansion boards / Housings\n\nGeekworm X301 2.5” SATA HDD/SSD NAS Expansion Board\nThingiverse:\n\nRaspberry Pi Zero W + 2.5” HDD: Be careful, this is for the Zero (without “2”) - does it have a different form factor?\n\n\n\n\nResources / other approaches\n\nTNASR1 - Tiny NAS with RAID1 - the cheapest and smallest NAS for your backup storage needs based on the Raspberry Pi Zero 2 W with two 2.5” SATA HDDs in RAID1\nHDD partitioning: https://www.opendisplaycase.de/tutorials/festplatte-fuer-raspberry-pi-co.html"
+  },
+  {
+    "objectID": "index.html#quick-links",
+    "href": "index.html#quick-links",
+    "title": "Data Rescue Hackathon",
+    "section": "Quick links",
+    "text": "Quick links\n\nSchedule\nCollaborative document: Goals\nCollaborative document: Tasks"
+  },
+  {
+    "objectID": "index.html#a-hackathon-to-build-resilient-research-data-rescue-nodes-that-backup-at-risk-research-data",
+    "href": "index.html#a-hackathon-to-build-resilient-research-data-rescue-nodes-that-backup-at-risk-research-data",
+    "title": "Data Rescue Hackathon",
+    "section": "A hackathon to build resilient research data rescue nodes that backup at-risk research data",
+    "text": "A hackathon to build resilient research data rescue nodes that backup at-risk research data\nThe Trump administration has aggressively removed scientific and governmental research data from public access, purging thousands of web pages and datasets related to climate, health, demographics, LGBTQ + issues, and more — silently erasing vital knowledge that underpins scientific progress [1] [2].\nWhile some European institutions start backing up at-risk research data [3] [4], the data rescue movement is driven by grassroots efforts like the Data Rescue Project and the Safeguarding Research initiative, who have mobilized volunteers, librarians, and scientists to download and archive these resources before they are lost forever.\nThe LMU Open Science Center is running a hackathon where we support, hands-on, the safeguar.de project.\nContact: felix.schoenbrodt@psy.lmu.de\n\n\nTasks / Contributions\n\nGather abandoned hardware (RPis, laptops, external 2.5” HDDs, large 3.5” HDDs) - do this before the hackathon\nSoftware development (see also https://codeberg.org/Safeguarding/sciop/projects)\n\nLinux/bash\nPython\nSQLite\nhtmx\n\nScraping/crawling datasets using browsertrix-crawler und scrapy\nKnowledge how to make macOS hardware capable to run Linux\nHardware knowledge, e.g.\n\noptimizing power consumption\nA solar/battery setup\n\nDesigning accessible documentation / tutorials (does not necessarily need technical knowledge; more creative and pedagogical skills)\nOutreach & community management\n\n\n\nMaterial that we need\n\nBYOD\nOld Raspberry Pis\nOld Micro-SD cards (at least 1 GB)\nOld external HDDs\nOld Laptops\nMany Cables: Micro-USB –&gt; Mini-USB\nPower strips\nTools (Mini-Screwdrivers)\n\n \n\n\n[1] The fight to protect US data has begun\n[2] The Data Hoarders Resisting Trump’s Purge: Can librarians and guerrilla archivists save the country’s files from DOGE?\n[3] Uni Bremen und AWI retten wertvolle wissenschaftliche US-Datenbanken\n[4] Germany’s Plan for an Open and Independent PubMed Safety Net"
+  },
+  {
+    "objectID": "recipes/Prepare_old_laptops.html",
+    "href": "recipes/Prepare_old_laptops.html",
+    "title": "Convert old laptops into Research Data Rescue Nodes",
+    "section": "",
+    "text": "This recipe refers to the old DELL laptops from our department.\nGoal: Wipe them, install Linux, and set them up as data rescue nodes.\n\nPut the USB boot stick into the right side USB port (the one more at the back)\nWhile powering on, press F12 to enter the boot menu\nSelect the USB stick from the list\nInstall Linux on the laptop\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "slides/intro_bittorrent.html#what-problem-does-bittorrent-solve",
+    "href": "slides/intro_bittorrent.html#what-problem-does-bittorrent-solve",
+    "title": "Rescueing Research Data with a BitTorrent Swarm",
+    "section": "What Problem Does BitTorrent Solve?",
+    "text": "What Problem Does BitTorrent Solve?\n\nTraditional downloads rely on one central server, creating bottlenecks and single points of failure (or attack).\nBitTorrent turns every downloader into an uploader, crowd‑sourcing bandwidth and resilience."
+  },
+  {
+    "objectID": "slides/intro_bittorrent.html#how-bittorrent-works-big-picture",
+    "href": "slides/intro_bittorrent.html#how-bittorrent-works-big-picture",
+    "title": "Rescueing Research Data with a BitTorrent Swarm",
+    "section": "How BitTorrent Works — Big Picture",
+    "text": "How BitTorrent Works — Big Picture\n\nYou grab a tiny .torrent file (or magnet link) that describes the content of a download package.\nYour BitTorrent client contacts a tracker or the decentralized hash table (DHT) to find peers.\nEach peer owns different pieces of the file.\nEveryone trades pieces simultaneously until all have the complete file."
+  },
+  {
+    "objectID": "slides/intro_bittorrent.html#key-roles-terms",
+    "href": "slides/intro_bittorrent.html#key-roles-terms",
+    "title": "Rescueing Research Data with a BitTorrent Swarm",
+    "section": "Key Roles & Terms",
+    "text": "Key Roles & Terms\n\n\n\n\n\n\n\n\nTerm\nConceptual Meaning\n\n\n\n\nPeer\nAny participant in the swarm (uploader and downloader)\n\n\nSeeder\nPeer with the whole file, only uploads\n\n\nLeecher\nPeer still downloading pieces\n\n\nSwarm\nThe full group of peers sharing a file\n\n\nTracker\nDirectory service that helps peers discover each other\n\n\nChunk\nA piece of a larger file\n\n\nDHT\nDecentralized hash table: A lookup table replacing or complementing trackers"
+  },
+  {
+    "objectID": "slides/intro_bittorrent.html#the-journey-of-a-file-simplified",
+    "href": "slides/intro_bittorrent.html#the-journey-of-a-file-simplified",
+    "title": "Rescueing Research Data with a BitTorrent Swarm",
+    "section": "The Journey of a File (Simplified)",
+    "text": "The Journey of a File (Simplified)\n\nCreator seeds the first copy.\nEarly peers download pieces and begin sharing them onward.\nSwarm grows; download speeds increase because more pieces are available.\nWhen you finish, keep seeding to give back to the community."
+  },
+  {
+    "objectID": "slides/intro_bittorrent.html#why-the-swarm-scales-well",
+    "href": "slides/intro_bittorrent.html#why-the-swarm-scales-well",
+    "title": "Rescueing Research Data with a BitTorrent Swarm",
+    "section": "Why the Swarm Scales Well",
+    "text": "Why the Swarm Scales Well\n\nBandwidth multiplies: More peers ⇒ more uploaders.\nResilience: No single point of failure; if one peer leaves, others fill in."
+  },
+  {
+    "objectID": "slides/intro_bittorrent.html#legitimate-everyday-uses",
+    "href": "slides/intro_bittorrent.html#legitimate-everyday-uses",
+    "title": "Rescueing Research Data with a BitTorrent Swarm",
+    "section": "Legitimate Everyday Uses",
+    "text": "Legitimate Everyday Uses\n\nDistributing large open‑source software (e.g., Linux ISOs).\nSyncing datasets in research and archiving projects.\nNEW: Sharing rescued public data threatened by deletion or censorship."
+  },
+  {
+    "objectID": "slides/intro_bittorrent.html#bittorrents-role-in-data-rescue",
+    "href": "slides/intro_bittorrent.html#bittorrents-role-in-data-rescue",
+    "title": "Rescueing Research Data with a BitTorrent Swarm",
+    "section": "BitTorrent’s Role in Data Rescue",
+    "text": "BitTorrent’s Role in Data Rescue\n\nMulti‑terabyte archives of endangered climate and health data are packaged as torrents, making them easy to replicate.\nDistributed seeding creates built‑in redundancy: data survives even if some peers go offline.\nTorrents can prioritize rare pieces, ensuring complete copies persist.\nCommunities on forums like https://forum.safeguar.de coordinate long‑term seeding campaigns."
+  },
+  {
+    "objectID": "slides/intro_bittorrent.html#challenges-considerations",
+    "href": "slides/intro_bittorrent.html#challenges-considerations",
+    "title": "Rescueing Research Data with a BitTorrent Swarm",
+    "section": "Challenges & Considerations",
+    "text": "Challenges & Considerations\n\nLegal/Ethical: Ensure you have the right to redistribute; focus on public‑domain or openly licensed datasets. ➙ Ensured by SciOp maintainers.\nSustainability: Swarms need seeders to stay healthy after initial interest fades.\nVerification: How can we ensure the integrity of uploaded data sets?\nFindability: As a fast emergency response, we"
+  },
+  {
+    "objectID": "slides/intro_bittorrent.html#quick-recap",
+    "href": "slides/intro_bittorrent.html#quick-recap",
+    "title": "Rescueing Research Data with a BitTorrent Swarm",
+    "section": "Quick Recap",
+    "text": "Quick Recap\n\nBitTorrent isn’t just for faster downloads—it’s a community safety net for public knowledge. By breaking files into pieces and letting everyone trade them, the protocol makes large‑scale distribution fast, resilient, and censorship‑resistant, helping researchers preserve crucial data in uncertain times."
+  },
+  {
+    "objectID": "slides/intro_bittorrent.html#further-resources",
+    "href": "slides/intro_bittorrent.html#further-resources",
+    "title": "Rescueing Research Data with a BitTorrent Swarm",
+    "section": "Further Resources",
+    "text": "Further Resources\n\nWikipedia – “BitTorrent”\nCommon Craft – “BitTorrent Explained”\nEnvironmental Data & Governance Initiative (EDGI)\nData Refuge / Data Rescue Project\nInternet Archive – “End‑of‑Term Web Archive”\n\nThis deck is licensed CC BY 4.0. Feel free to remix with attribution."
+  }
+]

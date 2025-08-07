@@ -1,0 +1,15 @@
+[
+  {
+    "listing": "/slides/slides.html",
+    "items": [
+      "/slides/intro_bittorrent.html"
+    ]
+  },
+  {
+    "listing": "/recipes/recipes.html",
+    "items": [
+      "/recipes/Prepare_old_laptops.html",
+      "/recipes/BT_on_Raspi.html"
+    ]
+  }
+]
