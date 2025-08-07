@@ -9,7 +9,8 @@
     "listing": "/recipes/recipes.html",
     "items": [
       "/recipes/Prepare_old_laptops.html",
-      "/recipes/BT_on_Raspi.html"
+      "/recipes/BT_on_Raspi.html",
+      "/recipes/sciop_scraper.html"
     ]
   }
 ]

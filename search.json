@@ -7,11 +7,74 @@
     "text": "Rescueing Research Data with a BitTorrent Swarm\n\n\nA Conceptual Introduction\n\n\n\n\n\n\n\n\n\n\n\nNo matching items\n Back to top"
   },
   {
-    "objectID": "recipes/recipes.html",
-    "href": "recipes/recipes.html",
-    "title": "Recipes",
+    "objectID": "recipes/sciop_scraper.html",
+    "href": "recipes/sciop_scraper.html",
+    "title": "Installing the sciop-scraper script",
     "section": "",
-    "text": "Convert old laptops into Research Data Rescue Nodes\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCreating a SciOp Research Data Rescue Node with a Raspberry Pi\n\n\n\n\n\n\n\n\n\n\n\nNo matching items\n Back to top"
+    "text": "See https://codeberg.org/Safeguarding/sciop-scraping and https://neuromatch.social/@jonny/114777116685048952\nPrerequisites:"
+  },
+  {
+    "objectID": "recipes/sciop_scraper.html#running-sciop-scraping-on-macos",
+    "href": "recipes/sciop_scraper.html#running-sciop-scraping-on-macos",
+    "title": "Installing the sciop-scraper script",
+    "section": "Running sciop-scraping on macOS",
+    "text": "Running sciop-scraping on macOS\n\nGo to qBittorrent client -&gt; Preferences -&gt; Web UI -&gt; Enable “Web User Interface (Remote control)”\nUnder “Authentication”, add a user name and a password\n\nInstall the sciop-scraping package. On my macOS, it expects a virtual environment:\nmkdir ~/.venvs\npython3 -m venv ~/.venvs/sciop-scraping\nsource ~/.venvs/sciop-scraping/bin/activate\n\npython3 -m pip install sciop-scraping\npython3 -m pip install sciop-cli\n\n# Get the version of sciop-scraping\npip show sciop-scraping\n\n# Now log into sciop with your *sciop* credentials\nsciop-cli login\n\n# In this step, you will need your local *qBittorrent* credentials.\nsciop-cli client login\n\n# Enter these values:\n# Which type of client? (qbittorrent): qbittorrent\n# Username: YOUR_QBITTORRENT_USERNAME\n# Password: YOUR_QBITTORRENT_PASSWORD\n# Host: localhost\n# Port: 8080\n\nsciop-scrape chronicling-america --next\nWhen you start the sciop-scrape command it will create a directory called data in your current working directory - so make sure that you start the script from a sensible location.\nAfter finishing the download, it should automatically create a torrent file. Now add the torrent file to your qBittorrent client:\n\nFile -&gt; Add Torrent File …\nSelect the torrent file in the torrents directory\nIn the following dialog, the wording is a bit confusing, because it assumes that you want to download the files of the torrent. But in this case, you already have all files and actually want to upload it. Therefore, you must select the data/chronicling-america directory as the save path.\nThen the torrent will be added to your qBittorrent client. It first checks, which parts of the download already are present - and will realize that 100% are already there. It then will start seeding the files.\n\nAs a final step, add the torrent to Sciop:\n\nGo to https://sciop.net/datasets/chronicling-america.\nIn the table, click on the “name” header to sort the table by dataset name.\nFind the name of your data set (in my example, rp_enchanter_ver02) and click on the “Upload” button in that row."
+  },
+  {
+    "objectID": "recipes/sciop_scraper.html#running-sciop-scraping-on-a-raspberry-pi",
+    "href": "recipes/sciop_scraper.html#running-sciop-scraping-on-a-raspberry-pi",
+    "title": "Installing the sciop-scraper script",
+    "section": "Running sciop-scraping on a Raspberry Pi",
+    "text": "Running sciop-scraping on a Raspberry Pi\nWe assume that you already installed the qBittorrent client on your Raspberry Pi and enabled the Web UI.\n# Make pip available\nsudo apt update\nsudo apt install python3-pip\npython3 -m pip install --upgrade pip\n\n# For securely storing the qBittorrent and sciop credentials\npython3 -m pip install keyrings.alt --break-system-packages\n\n# Install the sciop-scraping package\npython3 -m pip install sciop-scraping --break-system-packages\n\n# Add the installed commands to the PATH\ngrep -qxF 'export PATH=\"$HOME/.local/bin:$PATH\"' ~/.profile \\\n  || echo 'export PATH=\"$HOME/.local/bin:$PATH\"' &gt;&gt; ~/.profile\nsource ~/.profile\n\n# Now log into sciop with your *sciop* credentials\nsciop-cli login\n\n# In this step, you will need your *qBittorrent* credentials.\nsciop-cli client login\n\n# Enter these values:\n# Which type of client? (qbittorrent): qbittorrent\n# Username: YOUR_QBITTORRENT_USERNAME\n# Password: YOUR_QBITTORRENT_PASSWORD\n# Host: localhost\n# Port: 8080\n\n# Start scraping - in the correct download directory\ncd /mnt/HDD1/Downloads\nsciop-scrape chronicling-america --next\nDon’t be scared about the --break-system-packages option, it just tells pip to install the package globally (at the risk of breaking some dependencies). An alterantive would be to use a virtual environment, but that seemed overkill for this single-purpose RPi.\n\nRunning the scraping process in the background\nYou can keep the scraping process running in the background, even after you log out of the SSH session, with the screen command:\n# Install screen if not already installed\nsudo apt update && sudo apt install screen\ncd /mnt/HDD1/Downloads\n\n# Start a new screen session\n# give the session a name, e.g. \"scrape\"\nscreen -S scrape \n\n# Run your Python script\nsciop-scrape chronicling-america --next\n\n# You can also start a new scraping\nsciop-scrape chronicling-america --next --new\n\n\n# Detach from screen (Ctrl+A, then D)\n# You can now safely log out from SSH\n\n# To reattach later: Log back into your RPi via SSH and run:\nscreen -r scrape\nSome handy commands to check the status of the scraping:\ncd /mnt/HDD1/Downloads\n\n# Check the number of files in the current directory\nfind . -type f | wc -l\n\n# Show size of the current directory\ndu -sh .\n\n# Show the last 10 lines of the output log\ntail -n 10 /mnt/HDD1/Downloads/output.log"
+  },
+  {
+    "objectID": "recipes/sciop_scraper.html#troubleshooting",
+    "href": "recipes/sciop_scraper.html#troubleshooting",
+    "title": "Installing the sciop-scraper script",
+    "section": "Troubleshooting",
+    "text": "Troubleshooting\n❗️ On my first attempt, I moved the data directory to a different location while the scraping was not done. (The script was not running at that moment). Calling again sciop-scrape chronicling-america --next in the new location did resume the download (and it finished successfully), but the script signalled an error when trying to create the torrent file: “Error trying to upload chronicling-america - rp-enchanter-ver02: division by zero”. If you look at the content of quest-log.json, you see that it stores the absolute path to the data directory, which was wrong after moving.\nIf automatic creation fails, you can create the torrent file manually with the following command. In the example, I ran the command in the data directory and targeted the chronicling-america/rp_enchanter_ver02 subdirectory:\nsciop-cli torrent create -p chronicling-america/rp_enchanter_ver02 \\\n  --comment \"Downloaded with sciop-scrape v.0.1.11\" \\\n  -o torrents/rp_enchanter_ver02.torrent"
+  },
+  {
+    "objectID": "recipes/Prepare_old_laptops.html",
+    "href": "recipes/Prepare_old_laptops.html",
+    "title": "Convert old laptops into Research Data Rescue Nodes",
+    "section": "",
+    "text": "This recipe refers to the old DELL laptops from our department.\nGoal: Wipe them, install Linux, and set them up as data rescue nodes.\n\nPut the USB boot stick into the right side USB port (the one more at the back)\nWhile powering on, press F12 to enter the boot menu\nSelect the USB stick from the list\nInstall Linux on the laptop\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "index.html#quick-links-to-collaborative-documents",
+    "href": "index.html#quick-links-to-collaborative-documents",
+    "title": "Data Rescue Hackathon",
+    "section": "Quick links to collaborative documents",
+    "text": "Quick links to collaborative documents\n\nGoals\nTasks"
+  },
+  {
+    "objectID": "index.html#wlan-access",
+    "href": "index.html#wlan-access",
+    "title": "Data Rescue Hackathon",
+    "section": "WLAN access",
+    "text": "WLAN access\nIf you set up a Raspi, this will probably not have eduroam access due to missing certificates. For the hackathon, you can use this guest WLAN:"
+  },
+  {
+    "objectID": "index.html#a-hackathon-to-build-resilient-research-data-rescue-nodes-that-backup-at-risk-research-data",
+    "href": "index.html#a-hackathon-to-build-resilient-research-data-rescue-nodes-that-backup-at-risk-research-data",
+    "title": "Data Rescue Hackathon",
+    "section": "A hackathon to build resilient research data rescue nodes that backup at-risk research data",
+    "text": "A hackathon to build resilient research data rescue nodes that backup at-risk research data\nThe Trump administration has aggressively removed scientific and governmental research data from public access, purging thousands of web pages and datasets related to climate, health, demographics, LGBTQ + issues, and more — silently erasing vital knowledge that underpins scientific progress [1] [2].\nWhile some European institutions start backing up at-risk research data [3] [4], the data rescue movement is driven by grassroots efforts like the Data Rescue Project and the Safeguarding Research initiative, who have mobilized volunteers, librarians, and scientists to download and archive these resources before they are lost forever.\nThe LMU Open Science Center is running a hackathon where we support, hands-on, the safeguar.de project.\nContact: felix.schoenbrodt@psy.lmu.de\n\n\nTasks / Contributions\n\nGather abandoned hardware (RPis, laptops, external 2.5” HDDs, large 3.5” HDDs) - do this before the hackathon\nSoftware development (see also https://codeberg.org/Safeguarding/sciop/projects)\n\nLinux/bash\nPython\nSQLite\nhtmx\n\nScraping/crawling datasets using browsertrix-crawler und scrapy\nKnowledge how to make macOS hardware capable to run Linux\nHardware knowledge, e.g.\n\noptimizing power consumption\nA solar/battery setup\n\nDesigning accessible documentation / tutorials (does not necessarily need technical knowledge; more creative and pedagogical skills)\nOutreach & community management\n\n\n\nMaterial that we need\n\nBYOD\nOld Raspberry Pis\nOld Micro-SD cards (at least 1 GB)\nOld external HDDs\nOld Laptops\nMany Cables: Micro-USB –&gt; Mini-USB\nPower strips\nTools (Mini-Screwdrivers)\n\n \n\n\n[1] The fight to protect US data has begun\n[2] The Data Hoarders Resisting Trump’s Purge: Can librarians and guerrilla archivists save the country’s files from DOGE?\n[3] Uni Bremen und AWI retten wertvolle wissenschaftliche US-Datenbanken\n[4] Germany’s Plan for an Open and Independent PubMed Safety Net"
+  },
+  {
+    "objectID": "Schedule.html",
+    "href": "Schedule.html",
+    "title": "Schedule",
+    "section": "",
+    "text": "This is the schedule for 3-4h hackathon (as done on 2025-08-07).\n\n16:00: Welcome (5 min)\n16:05: Why are we here?: Ignition talk by Henrik Schönemann (15 min) + Q&A (10 min)\n16:30: Logistics: How to hackathon? (20 min)\n\nShow the set of (possible) goals (in levels) and areas of contributions in an overview slide. Leave some open boxes where we can add more goals.\nExplain tools/platforms to be used:\n\nGive a mini introduction to Bittorrent\nShow Sciop.net and how to use it\n\n\n16:50: Short round of introductions (10 min), tell us: Your main interest, your area of expertise, where do you want to focus on?\n\nEventually add more goals to the overview.\n\n17:00 - 18:30: Form interest groups, start hacking!\n\nMidway check-in after 45 min\nServe free pizza\n\n18:30: Wrap-up (30 min):\n\nTeams report on their progress and left-over todos\nTalk about next steps: Continue? Have another hackathon meeting? Work asynchronously in-between?\nCollect the successes:\n\nHow many datasets have effectively been added to the swarm? How many new nodes, with what HDD capacity? How many more are within reach?\nWhat other contributions have been made?\n\nCollect feedback on the hackathon: What worked well? What can be improved?\nOutlook: Show next steps (Sciop scraping / How to add new data sets; how to set up a SciOp instance at the LMU OSC; how to set up a solar-powered HiveSeed)\n\n\nFollow-up: Outreach\n\nSend followup feedback survey to participants\nCreate an LMU Matrix channel?\nShowcase projects and successes on social media\n\n\nTasks / Contributions\n\nGather abandoned hardware (RPis, laptops, external 2.5” HDDs, large 3.5” HDDs) - do this before the hackathon\nSoftware development (see also https://codeberg.org/Safeguarding/sciop/projects)\n\nLinux/bash\nPython\nSQLite\nhtmx\n\nScraping/crawling datasets using browsertrix-crawler und scrapy\nKnowledge how to make macOS hardware capable to run Linux\nHardware knowledge, e.g.\n\noptimizing power consumption\nA solar/battery setup\n\nDesigning accessible documentation / tutorials (does not necessarily need technical knowledge; more creative and pedagogical skills)\nOutreach & community management\n\n\n\nMaterial that we need\n\nBYOD\nOld Raspberry Pis\nOld Micro-SD cards (at least 1 GB)\nOld external HDDs\nOld Laptops\nMany Cables: Micro-USB –&gt; Mini-USB\nPower strips\nTools (Mini-Screwdrivers)\n\n\n\nCaveat\n\nCan the RPis establish a WiFi connection to the LRZ network? Or maybe the BayernWLAN? –&gt;\n\nRequest a guest WiFi account for the hackathon\nExplain participants how they can connect their RPis to their home Wifi (when they take their device with them)\n\n\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "This Hackathon is organized by Felix Schönbrodt, Philipp Sckopke and Henrik Schönemann, and hosted by the LMU Open Science Center.\n\n\n\n Back to top"
   },
   {
     "objectID": "recipes/BT_on_Raspi.html",
@@ -56,46 +119,11 @@
     "text": "Misc\n\nExpansion boards / Housings\n\nGeekworm X301 2.5” SATA HDD/SSD NAS Expansion Board\nThingiverse:\n\nRaspberry Pi Zero W + 2.5” HDD: Be careful, this is for the Zero (without “2”) - does it have a different form factor?\n\n\n\n\nResources / other approaches\n\nTNASR1 - Tiny NAS with RAID1 - the cheapest and smallest NAS for your backup storage needs based on the Raspberry Pi Zero 2 W with two 2.5” SATA HDDs in RAID1\nHDD partitioning: https://www.opendisplaycase.de/tutorials/festplatte-fuer-raspberry-pi-co.html"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "recipes/recipes.html",
+    "href": "recipes/recipes.html",
+    "title": "Recipes",
     "section": "",
-    "text": "This Hackathon is organized by Felix Schönbrodt, Philipp Sckopke and Henrik Schönemann, and hosted by the LMU Open Science Center.\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "Schedule.html",
-    "href": "Schedule.html",
-    "title": "Schedule",
-    "section": "",
-    "text": "This is the schedule for 3-4h hackathon (as done on 2025-08-07).\n\n16:00: Welcome (5 min)\n16:05: Why are we here?: Ignition talk by Henrik Schönemann (15 min) + Q&A (10 min)\n16:30: Logistics: How to hackathon? (20 min)\n\nShow the set of (possible) goals (in levels) and areas of contributions in an overview slide. Leave some open boxes where we can add more goals.\nExplain tools/platforms to be used:\n\nGive a mini introduction to Bittorrent\nShow Sciop.net and how to use it\n\n\n16:50: Short round of introductions (10 min), tell us: Your main interest, your area of expertise, where do you want to focus on?\n\nEventually add more goals to the overview.\n\n17:00 - 18:30: Form interest groups, start hacking!\n\nMidway check-in after 45 min\nServe free pizza\n\n18:30: Wrap-up (30 min):\n\nTeams report on their progress and left-over todos\nTalk about next steps: Continue? Have another hackathon meeting? Work asynchronously in-between?\nCollect the successes:\n\nHow many datasets have effectively been added to the swarm? How many new nodes, with what HDD capacity? How many more are within reach?\nWhat other contributions have been made?\n\nCollect feedback on the hackathon: What worked well? What can be improved?\nOutlook: Show next steps (Sciop scraping / How to add new data sets; how to set up a SciOp instance at the LMU OSC; how to set up a solar-powered HiveSeed)\n\n\nFollow-up: Outreach\n\nSend followup feedback survey to participants\nCreate an LMU Matrix channel?\nShowcase projects and successes on social media\n\n\nTasks / Contributions\n\nGather abandoned hardware (RPis, laptops, external 2.5” HDDs, large 3.5” HDDs) - do this before the hackathon\nSoftware development (see also https://codeberg.org/Safeguarding/sciop/projects)\n\nLinux/bash\nPython\nSQLite\nhtmx\n\nScraping/crawling datasets using browsertrix-crawler und scrapy\nKnowledge how to make macOS hardware capable to run Linux\nHardware knowledge, e.g.\n\noptimizing power consumption\nA solar/battery setup\n\nDesigning accessible documentation / tutorials (does not necessarily need technical knowledge; more creative and pedagogical skills)\nOutreach & community management\n\n\n\nMaterial that we need\n\nBYOD\nOld Raspberry Pis\nOld Micro-SD cards (at least 1 GB)\nOld external HDDs\nOld Laptops\nMany Cables: Micro-USB –&gt; Mini-USB\nPower strips\nTools (Mini-Screwdrivers)\n\n\n\nCaveat\n\nCan the RPis establish a WiFi connection to the LRZ network? Or maybe the BayernWLAN? –&gt;\n\nRequest a guest WiFi account for the hackathon\nExplain participants how they can connect their RPis to their home Wifi (when they take their device with them)\n\n\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "index.html#quick-links-to-collaborative-documents",
-    "href": "index.html#quick-links-to-collaborative-documents",
-    "title": "Data Rescue Hackathon",
-    "section": "Quick links to collaborative documents",
-    "text": "Quick links to collaborative documents\n\nGoals\nTasks"
-  },
-  {
-    "objectID": "index.html#wlan-access",
-    "href": "index.html#wlan-access",
-    "title": "Data Rescue Hackathon",
-    "section": "WLAN access",
-    "text": "WLAN access\nIf you set up a Raspi, this will probably not have eduroam access due to missing certificates. For the hackathon, you can use this guest WLAN:"
-  },
-  {
-    "objectID": "index.html#a-hackathon-to-build-resilient-research-data-rescue-nodes-that-backup-at-risk-research-data",
-    "href": "index.html#a-hackathon-to-build-resilient-research-data-rescue-nodes-that-backup-at-risk-research-data",
-    "title": "Data Rescue Hackathon",
-    "section": "A hackathon to build resilient research data rescue nodes that backup at-risk research data",
-    "text": "A hackathon to build resilient research data rescue nodes that backup at-risk research data\nThe Trump administration has aggressively removed scientific and governmental research data from public access, purging thousands of web pages and datasets related to climate, health, demographics, LGBTQ + issues, and more — silently erasing vital knowledge that underpins scientific progress [1] [2].\nWhile some European institutions start backing up at-risk research data [3] [4], the data rescue movement is driven by grassroots efforts like the Data Rescue Project and the Safeguarding Research initiative, who have mobilized volunteers, librarians, and scientists to download and archive these resources before they are lost forever.\nThe LMU Open Science Center is running a hackathon where we support, hands-on, the safeguar.de project.\nContact: felix.schoenbrodt@psy.lmu.de\n\n\nTasks / Contributions\n\nGather abandoned hardware (RPis, laptops, external 2.5” HDDs, large 3.5” HDDs) - do this before the hackathon\nSoftware development (see also https://codeberg.org/Safeguarding/sciop/projects)\n\nLinux/bash\nPython\nSQLite\nhtmx\n\nScraping/crawling datasets using browsertrix-crawler und scrapy\nKnowledge how to make macOS hardware capable to run Linux\nHardware knowledge, e.g.\n\noptimizing power consumption\nA solar/battery setup\n\nDesigning accessible documentation / tutorials (does not necessarily need technical knowledge; more creative and pedagogical skills)\nOutreach & community management\n\n\n\nMaterial that we need\n\nBYOD\nOld Raspberry Pis\nOld Micro-SD cards (at least 1 GB)\nOld external HDDs\nOld Laptops\nMany Cables: Micro-USB –&gt; Mini-USB\nPower strips\nTools (Mini-Screwdrivers)\n\n \n\n\n[1] The fight to protect US data has begun\n[2] The Data Hoarders Resisting Trump’s Purge: Can librarians and guerrilla archivists save the country’s files from DOGE?\n[3] Uni Bremen und AWI retten wertvolle wissenschaftliche US-Datenbanken\n[4] Germany’s Plan for an Open and Independent PubMed Safety Net"
-  },
-  {
-    "objectID": "recipes/Prepare_old_laptops.html",
-    "href": "recipes/Prepare_old_laptops.html",
-    "title": "Convert old laptops into Research Data Rescue Nodes",
-    "section": "",
-    "text": "This recipe refers to the old DELL laptops from our department.\nGoal: Wipe them, install Linux, and set them up as data rescue nodes.\n\nPut the USB boot stick into the right side USB port (the one more at the back)\nWhile powering on, press F12 to enter the boot menu\nSelect the USB stick from the list\nInstall Linux on the laptop\n\n\n\n\n Back to top"
+    "text": "Convert old laptops into Research Data Rescue Nodes\n\n\nJust electronic waste? Let’s breath new life in these poor machines.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCreating a SciOp Research Data Rescue Node with a Raspberry Pi\n\n\nHow to set up a Raspi from scratch.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstalling the sciop-scraper script\n\n\nTHis script simplifies downloading new data sets.\n\n\n\n\n\n\n\n\nNo matching items\n Back to top"
   },
   {
     "objectID": "slides/intro_bittorrent.html#what-problem-does-bittorrent-solve",
