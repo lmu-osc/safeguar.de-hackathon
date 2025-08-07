@@ -56,11 +56,32 @@
     "text": "Misc\n\nExpansion boards / Housings\n\nGeekworm X301 2.5” SATA HDD/SSD NAS Expansion Board\nThingiverse:\n\nRaspberry Pi Zero W + 2.5” HDD: Be careful, this is for the Zero (without “2”) - does it have a different form factor?\n\n\n\n\nResources / other approaches\n\nTNASR1 - Tiny NAS with RAID1 - the cheapest and smallest NAS for your backup storage needs based on the Raspberry Pi Zero 2 W with two 2.5” SATA HDDs in RAID1\nHDD partitioning: https://www.opendisplaycase.de/tutorials/festplatte-fuer-raspberry-pi-co.html"
   },
   {
-    "objectID": "index.html#quick-links",
-    "href": "index.html#quick-links",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "This Hackathon is organized by Felix Schönbrodt, Philipp Sckopke and Henrik Schönemann, and hosted by the LMU Open Science Center.\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Schedule.html",
+    "href": "Schedule.html",
+    "title": "Schedule",
+    "section": "",
+    "text": "This is the schedule for 3-4h hackathon (as done on 2025-08-07).\n\n16:00: Welcome (5 min)\n16:05: Why are we here?: Ignition talk by Henrik Schönemann (15 min) + Q&A (10 min)\n16:30: Logistics: How to hackathon? (20 min)\n\nShow the set of (possible) goals (in levels) and areas of contributions in an overview slide. Leave some open boxes where we can add more goals.\nExplain tools/platforms to be used:\n\nGive a mini introduction to Bittorrent\nShow Sciop.net and how to use it\n\n\n16:50: Short round of introductions (10 min), tell us: Your main interest, your area of expertise, where do you want to focus on?\n\nEventually add more goals to the overview.\n\n17:00 - 18:30: Form interest groups, start hacking!\n\nMidway check-in after 45 min\nServe free pizza\n\n18:30: Wrap-up (30 min):\n\nTeams report on their progress and left-over todos\nTalk about next steps: Continue? Have another hackathon meeting? Work asynchronously in-between?\nCollect the successes:\n\nHow many datasets have effectively been added to the swarm? How many new nodes, with what HDD capacity? How many more are within reach?\nWhat other contributions have been made?\n\nCollect feedback on the hackathon: What worked well? What can be improved?\nOutlook: Show next steps (Sciop scraping / How to add new data sets; how to set up a SciOp instance at the LMU OSC; how to set up a solar-powered HiveSeed)\n\n\nFollow-up: Outreach\n\nSend followup feedback survey to participants\nCreate an LMU Matrix channel?\nShowcase projects and successes on social media\n\n\nTasks / Contributions\n\nGather abandoned hardware (RPis, laptops, external 2.5” HDDs, large 3.5” HDDs) - do this before the hackathon\nSoftware development (see also https://codeberg.org/Safeguarding/sciop/projects)\n\nLinux/bash\nPython\nSQLite\nhtmx\n\nScraping/crawling datasets using browsertrix-crawler und scrapy\nKnowledge how to make macOS hardware capable to run Linux\nHardware knowledge, e.g.\n\noptimizing power consumption\nA solar/battery setup\n\nDesigning accessible documentation / tutorials (does not necessarily need technical knowledge; more creative and pedagogical skills)\nOutreach & community management\n\n\n\nMaterial that we need\n\nBYOD\nOld Raspberry Pis\nOld Micro-SD cards (at least 1 GB)\nOld external HDDs\nOld Laptops\nMany Cables: Micro-USB –&gt; Mini-USB\nPower strips\nTools (Mini-Screwdrivers)\n\n\n\nCaveat\n\nCan the RPis establish a WiFi connection to the LRZ network? Or maybe the BayernWLAN? –&gt;\n\nRequest a guest WiFi account for the hackathon\nExplain participants how they can connect their RPis to their home Wifi (when they take their device with them)\n\n\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "index.html#quick-links-to-collaborative-documents",
+    "href": "index.html#quick-links-to-collaborative-documents",
     "title": "Data Rescue Hackathon",
-    "section": "Quick links",
-    "text": "Quick links\n\nSchedule\nCollaborative document: Goals\nCollaborative document: Tasks"
+    "section": "Quick links to collaborative documents",
+    "text": "Quick links to collaborative documents\n\nGoals\nTasks"
+  },
+  {
+    "objectID": "index.html#wlan-access",
+    "href": "index.html#wlan-access",
+    "title": "Data Rescue Hackathon",
+    "section": "WLAN access",
+    "text": "WLAN access\nIf you set up a Raspi, this will probably not have eduroam access due to missing certificates. For the hackathon, you can use this guest WLAN:"
   },
   {
     "objectID": "index.html#a-hackathon-to-build-resilient-research-data-rescue-nodes-that-backup-at-risk-research-data",
