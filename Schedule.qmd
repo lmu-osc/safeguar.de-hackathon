@@ -1,4 +1,8 @@
-# Schedule for a 3-4h hackathon
+---
+title: "Schedule"
+---
+
+This is the schedule for 3-4h hackathon (as done on 2025-08-07).
 
 -   **16:00**: Welcome (5 min)
 -   **16:05**: *Why are we here?*: Ignition talk by Henrik Schönemann (15 min) + Q&A (10 min)

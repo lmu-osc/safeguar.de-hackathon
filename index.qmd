@@ -1,0 +1,74 @@
+---
+title: "Data Rescue Hackathon"
+format:
+  html:
+    toc: true
+    html-math-method: katex
+---
+
+![](img/ascii-art.png)
+
+
+## Quick links to collaborative documents
+
+- [Goals](https://cryptpad.fr/doc/#/2/doc/edit/+RyUB-OyaU7PLaIzteZr2X4x/)
+- [Tasks](https://cryptpad.fr/doc/#/2/doc/edit/-g3WFAzfrC-MB596PUbajK+H/)
+
+
+## WLAN access
+
+If you set up a Raspi, this will probably not have eduroam access due to missing certificates. For the hackathon, you can use this guest WLAN:
+
+
+
+## A hackathon to build resilient research data rescue nodes that backup at-risk research data
+
+The Trump administration has aggressively removed scientific and governmental research data from public access, purging thousands of web pages and datasets related to climate, health, demographics, LGBTQ + issues, and more — silently erasing vital knowledge that underpins scientific progress [[1]](https://www.ft.com/content/ccb0c850-f466-4b74-8c07-7d01230679a4) [[2]](https://www.newyorker.com/news/the-lede/the-data-hoarders-resisting-trumps-purge).
+
+While some European institutions start backing up at-risk research data [[3]](https://www.uni-bremen.de/universitaet/hochschulkommunikation-und-marketing/pressemitteilungen/detailansicht/uni-bremen-und-awi-retten-wertvolle-wissenschaftliche-us-datenbanken) [[4]](https://absolutelymaybe.plos.org/2025/05/14/germanys-plan-for-an-open-and-independent-pubmed-safety-net/), the data rescue movement is driven by grassroots efforts like the [Data Rescue Project](https://www.datarescueproject.org) and the [Safeguarding Research](https://safeguar.de) initiative, who have mobilized volunteers, librarians, and scientists to download and archive these resources before they are lost forever.
+
+The LMU Open Science Center is running a hackathon where we support, hands-on, the [safeguar.de](https://safeguar.de) project.
+
+
+Contact: felix.schoenbrodt@psy.lmu.de
+
+---
+
+### Tasks / Contributions
+
+-   Gather abandoned hardware (RPis, laptops, external 2.5" HDDs, large 3.5" HDDs) - do this *before* the hackathon
+-   Software development (see also [https://codeberg.org/Safeguarding/sciop/projects](https://codeberg.org/Safeguarding/sciop/projects))
+    -   Linux/bash
+    -   Python
+    -   SQLite
+    -   htmx
+- Scraping/crawling datasets using [browsertrix-crawler](https://crawler.docs.browsertrix.com) und [scrapy](https://www.scrapy.org)
+-   Knowledge how to make macOS hardware capable to run Linux
+-   Hardware knowledge, e.g.
+    -   optimizing power consumption
+    -   A solar/battery setup
+-   Designing accessible documentation / tutorials (does not necessarily need technical knowledge; more creative and pedagogical skills)
+-   Outreach & community management
+
+### Material that we need
+
+-   BYOD
+-   Old Raspberry Pis
+-   Old Micro-SD cards (at least 1 GB)
+-   Old external HDDs
+-   Old Laptops
+-   Many Cables: Micro-USB --\> Mini-USB
+-   Power strips
+-   Tools (Mini-Screwdrivers)
+
+
+
+![](img/sciop.png)
+![](img/safeguarde.png)
+
+---
+
+- [1] [The fight to protect US data has begun](https://www.ft.com/content/ccb0c850-f466-4b74-8c07-7d01230679a4)
+- [2] [The Data Hoarders Resisting Trump’s Purge: Can librarians and guerrilla archivists save the country’s files from DOGE?](https://www.newyorker.com/news/the-lede/the-data-hoarders-resisting-trumps-purge) 
+- [3] [Uni Bremen und AWI retten wertvolle wissenschaftliche US-Datenbanken](https://www.uni-bremen.de/universitaet/hochschulkommunikation-und-marketing/pressemitteilungen/detailansicht/uni-bremen-und-awi-retten-wertvolle-wissenschaftliche-us-datenbanken)
+- [4] [Germany’s Plan for an Open and Independent PubMed Safety Net](https://absolutelymaybe.plos.org/2025/05/14/germanys-plan-for-an-open-and-independent-pubmed-safety-net/)

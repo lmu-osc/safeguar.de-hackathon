@@ -1,0 +1,8 @@
+---
+title: "Recipes"
+listing:
+  contents:
+    - "*.qmd"
+    - "!recipes.qmd"
+---
+

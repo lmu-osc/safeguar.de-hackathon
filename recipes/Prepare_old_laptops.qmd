@@ -1,0 +1,17 @@
+---
+title: "Convert old laptops into Research Data Rescue Nodes"
+format:
+  html:
+    toc: true
+    html-math-method: katex
+---
+
+This recipe refers to the old DELL laptops from our department.
+
+**Goal**: Wipe them, install Linux, and set them up as data rescue nodes.
+
+1. Put the USB boot stick into the right side USB port (the one more at the back)
+2. While powering on, press F12 to enter the boot menu
+3. Select the USB stick from the list
+4. Install Linux on the laptop
+

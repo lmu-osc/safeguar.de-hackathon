@@ -1,4 +1,4 @@
-The survey is implemented in *formr*, which defines surveys in a [Google Sheet](https://docs.google.com/spreadsheets/d/1a5M1byHaIuDaFBpFYS9Ym_QBek6ZuPHI1fxfznlSM70/edit?usp=sharing).
+The survey is implemented in *formr*, which defines the survey in this [Google Sheet](https://docs.google.com/spreadsheets/d/1a5M1byHaIuDaFBpFYS9Ym_QBek6ZuPHI1fxfznlSM70/edit?usp=sharing).
 
 **Privacy disclaimer:**
 TODO

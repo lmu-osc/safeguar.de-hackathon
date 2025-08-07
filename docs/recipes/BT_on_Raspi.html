@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Creating a SciOp Research Data Rescue Node with a Raspberry Pi – LMU OSC Safeguar.de Hackathon</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/LMU_OSC_favicon.jpg" rel="icon" type="image/jpeg">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-87a90d6cd053217c862a99e50be3ff3a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<!-- See the OSC internal instructions on how to generate and include the code necessary for the Matomo Analytics tracking. -->
+
+
+<link rel="stylesheet" href="https://raw.githubusercontent.com/lmu-osc/branding-resources/refs/heads/main/lmu-osc-styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">LMU OSC Safeguar.de Hackathon</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../recipes/recipes.html"> 
+<span class="menu-text">Recipes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../slides/slides.html"> 
+<span class="menu-text">Slides</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/lmu-osc/safeguar.de-hackathon">
+            Source Code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/lmu-osc/safeguar.de-hackathon/issues">
+            Report a Bug
+            </a>
+          </li>
+      </ul>
+    </div>
+    <a href="https://www.osc.uni-muenchen.de/index.html" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-house-heart"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Creating a SciOp Research Data Rescue Node with a Raspberry Pi</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><img src="../assets/LMU_OSC_logo.svg" class="img-fluid" width="175"></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#shopping-list" id="toc-shopping-list" class="nav-link active" data-scroll-target="#shopping-list">0. Shopping list</a></li>
+  <li><a href="#install-the-os-on-the-micro-sd-card" id="toc-install-the-os-on-the-micro-sd-card" class="nav-link" data-scroll-target="#install-the-os-on-the-micro-sd-card">1. Install the OS on the micro-SD card</a></li>
+  <li><a href="#enable-the-external-hdd" id="toc-enable-the-external-hdd" class="nav-link" data-scroll-target="#enable-the-external-hdd">2. Enable the external HDD</a>
+  <ul class="collapse">
+  <li><a href="#create-a-new-partition-table" id="toc-create-a-new-partition-table" class="nav-link" data-scroll-target="#create-a-new-partition-table">Create a new partition table</a></li>
+  <li><a href="#format-the-new-partition" id="toc-format-the-new-partition" class="nav-link" data-scroll-target="#format-the-new-partition">Format the new partition</a></li>
+  <li><a href="#automatically-mount-the-hdd-on-boot" id="toc-automatically-mount-the-hdd-on-boot" class="nav-link" data-scroll-target="#automatically-mount-the-hdd-on-boot">Automatically mount the HDD on boot</a></li>
+  </ul></li>
+  <li><a href="#install-the-qbittorrent-client" id="toc-install-the-qbittorrent-client" class="nav-link" data-scroll-target="#install-the-qbittorrent-client">3. Install the qbitTorrent client</a>
+  <ul class="collapse">
+  <li><a href="#create-a-background-service-for-the-qbittorrent-client" id="toc-create-a-background-service-for-the-qbittorrent-client" class="nav-link" data-scroll-target="#create-a-background-service-for-the-qbittorrent-client">Create a background service for the qbitTorrent client</a></li>
+  <li><a href="#configuring-qbittorrent-for-sciop" id="toc-configuring-qbittorrent-for-sciop" class="nav-link" data-scroll-target="#configuring-qbittorrent-for-sciop">Configuring qbitTorrent for SciOp</a></li>
+  </ul></li>
+  <li><a href="#misc" id="toc-misc" class="nav-link" data-scroll-target="#misc">Misc</a>
+  <ul class="collapse">
+  <li><a href="#expansion-boards-housings" id="toc-expansion-boards-housings" class="nav-link" data-scroll-target="#expansion-boards-housings">Expansion boards / Housings</a></li>
+  <li><a href="#resources-other-approaches" id="toc-resources-other-approaches" class="nav-link" data-scroll-target="#resources-other-approaches">Resources / other approaches</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/lmu-osc/safeguar.de-hackathon/edit/main/recipes/BT_on_Raspi.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/lmu-osc/safeguar.de-hackathon/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Creating a SciOp Research Data Rescue Node with a Raspberry Pi</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This tutorial has been tried out on a <em>Raspberry Pi Zero 2 W</em>. This is the cheapest, smallest and most efficient Raspberry Pi that can run a full Linux distribution, and it has enough power to run a small NAS with an external HDD. However, the same steps should also work on other Raspberry Pi models, such as the Raspberry Pi 3 or 4, which have more processing power and memory.</p>
+<p>We will create a “headless” machine, which means it does not have a monitor or keyboard attached, but can be accessed via SSH. This is ideal for a small NAS that runs in the background and can be accessed remotely.</p>
+<p><img src="img/Pi_zero_RDRN.jpeg" class="img-fluid"></p>
+<section id="shopping-list" class="level2">
+<h2 class="anchored" data-anchor-id="shopping-list">0. Shopping list</h2>
+<p>Recycle existing hardware as much as possible!</p>
+<ul>
+<li><a href="https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/">Raspberry Pi Zero 2 W</a>: ~15 €</li>
+<li>A micro-SD card with a minimal capacity of 4 GB: ~5 €
+<ul>
+<li>Note: The RPi cannot boot from an external HDD, so you need a micro-SD card as internal storage for installing the OS and necessary packages.</li>
+</ul></li>
+<li>An external 2.5” HDD or SSD</li>
+<li>A cable that connects the HDD to the micro-USB port of the RPi</li>
+<li>A USB power supply with 5V and at least 2A output: ~5 €
+<ul>
+<li>Note: It has been <a href="https://www.reddit.com/r/DataHoarder/comments/18j130b/tnasr1_tiny_nas_with_raid1_the_cheapest_and/">reported</a> that some setups needed 5.<strong>3</strong>V to have a stable power supply during HDD startup.</li>
+</ul></li>
+</ul>
+</section>
+<section id="install-the-os-on-the-micro-sd-card" class="level2">
+<h2 class="anchored" data-anchor-id="install-the-os-on-the-micro-sd-card">1. Install the OS on the micro-SD card</h2>
+<p>Download and start the <a href="https://www.raspberrypi.com/software/">Raspberry Pi Imager</a>.</p>
+<ul>
+<li>Select <code>Raspberry Pi Model</code> –&gt; <code>Raspberry Pi Zero 2 W</code></li>
+<li>Select <code>OS</code> –&gt; <code>Raspberry Pi OS (other)</code> –&gt; <code>Raspberry Pi OS Lite (64-bit)</code>. This should have ~0.4 GB.</li>
+</ul>
+<p>In the next step, you should:</p>
+<ul>
+<li>Configure WiFi</li>
+<li>Configure the hostname
+<ul>
+<li>In this tutorial we use <code>HiveSeed</code> as hostname.</li>
+</ul></li>
+<li>Enable SSH (either via password or SSH key)</li>
+<li>Add a user and a password
+<ul>
+<li>In this tutorial we use <code>pi</code> as username and <code>raspberry</code> as password, but you should change that to something more secure.</li>
+</ul></li>
+</ul>
+<p>Put the prepared micro-SD card into the RPi, power on, and log in via SSH. Your user name and password are the ones you configured in the previous step:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> pi@HiveSeed.local</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>When you are logged in, you first should update the system:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt upgrade <span class="at">-y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Optionally, you can enable SSH key authentication for a more secure and convenient login:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> ~/.ssh</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 700 ~/.ssh</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> ~/.ssh/authorized_keys</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Copy your public SSH key into the <code>authorized_keys</code> file. You can print the key with the following command in a terminal on your <em>local</em> machine:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> ~/.ssh/id_rsa.pub</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then paste the key into the <code>authorized_keys</code> file on the RPi. Save and exit the file editor (in nano, press <code>CTRL + X</code>, then <code>Y</code> to confirm saving, and <code>ENTER</code> to exit).</p>
+</section>
+<section id="enable-the-external-hdd" class="level2">
+<h2 class="anchored" data-anchor-id="enable-the-external-hdd">2. Enable the external HDD</h2>
+<p>Connect the external HDD to the RPi via USB (be careful: there is one micro-USB port for powering the RPi Zero 2 and one for data transfer - they are <em>not</em> exchangeable).</p>
+<p>Show the connected storage devices:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> fdisk <span class="at">-l</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The output first shows multiple partitions on the internal micro-SD card, and then the external HDD. In our case, we attached a 500GB HDD and see this output:</p>
+<pre><code>[...]
+Disk /dev/sda: 465.76 GiB, 500107862016 bytes, 976773168 sectors
+Disk model: 5000BMV External
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 5A63CF10-2BE1-499E-818D-28AB87D27648
+
+Device      Start       End   Sectors   Size Type
+/dev/sda1      40    409639    409600   200M EFI System
+/dev/sda2  411648 976510975 976099328 465.4G Microsoft basic data</code></pre>
+<p>In this example, the device name of the external HDD is <code>/dev/sda</code>, but it might be different on your system. Make sure to replace <code>/dev/sda</code> with the correct device name in the following commands.</p>
+<section id="create-a-new-partition-table" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-new-partition-table">Create a new partition table</h3>
+<p>The previous formatting of our HDD was done with Windows, so it has a <code>Microsoft basic data</code> partition type. It also has an EFI System partition, which is not needed for our use case.</p>
+<p>Next, we will reformat it to use it with the RPi. <strong>This will erase all data!</strong></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> fdisk /dev/sda</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This utility allows you to create, delete, and modify partitions on the disk. Follow these steps:</p>
+<ul>
+<li>Press <code>p</code> to print the current partition table.</li>
+<li>Press <code>d</code> to delete all existing partitions. You might need to do this multiple times if there are multiple partitions.</li>
+<li>Press <code>n</code> to create a new partition.
+<ul>
+<li>Press <code>Enter</code> three times to accept the default partition number, the default first sector, and the default last sector.</li>
+</ul></li>
+<li>Press <code>p</code> again to check the new partition table.</li>
+<li>Up to this step, nothing has been written to the disk yet - we just planned the partioning steps.
+<ul>
+<li>You can still exit without saving changes by pressing <code>q</code>.</li>
+<li>If you are satisfied with the new partition table <em>and ready to erase all data</em>, press <code>w</code> to write the changes to the disk and exit.</li>
+</ul></li>
+</ul>
+<p>If you re-run <code>sudo fdisk -l</code>, you should see the new partition table with a single partition. In our case, it looks like this (note the <code>Linux filesystem</code> type on <code>dev/sda1</code>):</p>
+<pre><code>Device     Start       End   Sectors   Size Type
+/dev/sda1   2048 976773119 976771072 465.8G Linux filesystem</code></pre>
+</section>
+<section id="format-the-new-partition" class="level3">
+<h3 class="anchored" data-anchor-id="format-the-new-partition">Format the new partition</h3>
+<p><code>HIVESEEDSTORAGE</code> is the name of the partition we will create - you can choose a different name if you like.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mkfs.ext4 <span class="at">-L</span> HIVESEEDSTORAGE <span class="at">-E</span> lazy_itable_init=0,lazy_journal_init=0 /dev/sda1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This formatting avoids the <code>ext4lazyinit</code> process, which consumes a low I/O bandwidth (approx. 11-13 Mb/s) in idle mode.</p>
+<p>Finally, mount the drive (only then it is accessible):</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a mount point on the RPi SD card</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mkdir /mnt/HDD1</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># mount the partition to that mount point</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mount /dev/sda1 /mnt/HDD1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="automatically-mount-the-hdd-on-boot" class="level3">
+<h3 class="anchored" data-anchor-id="automatically-mount-the-hdd-on-boot">Automatically mount the HDD on boot</h3>
+<p>To make the mount persistent across reboots, you can add an entry to the <code>/etc/fstab</code> file. For that, we need to find the UUID of the HDD:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> blkid <span class="at">-o</span> list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In my case, the output looks like this:</p>
+<pre><code>device                    fs_type    label       mount point                   UUID
+--------------------------------------------------------------------------------------------------------------------
+/dev/mmcblk0p1            vfat       bootfs      /boot/firmware                EC36-4DE1
+/dev/mmcblk0p2            ext4       rootfs      /                             d4cc7d63-da78-48ad-9bdd-64ffbba449a8
+/dev/sda1                 ext4       HIVESEEDSTORAGE (not mounted)             89d8ab88-7a9e-495e-8dbb-3e9423eea43d</code></pre>
+<p>Copy the UUID and add this line (with <em>your</em> UUID) to <code>/etc/fstab</code>:</p>
+<p><code>UUID=89d8ab88-7a9e-495e-8dbb-3e9423eea43d  /mnt/HDD1 ext4 defaults 0 2</code></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nano /etc/fstab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Run <code>sudo reboot</code>, re-login via SSH and <code>sudo blkid -o list</code> to verify that the HDD is automatically mounted on boot.</p>
+</section>
+</section>
+<section id="install-the-qbittorrent-client" class="level2">
+<h2 class="anchored" data-anchor-id="install-the-qbittorrent-client">3. Install the qbitTorrent client</h2>
+<p>To install the qbitTorrent client, we roughly follow this <a href="https://pimylifeup.com/raspberry-pi-qbittorrent/#setup-commandline">guide</a>. First, install the necessary packages:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install qbittorrent-nox <span class="at">-y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>-nox</code> option installs the headless version of qbitTorrent, which is suitable for running on a server without a graphical user interface. You can still access it via a web interface. The <code>-y</code> option automatically answers “yes” to any prompts during the installation.</p>
+<p>You can start the qbitTorrent client with the following command:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qbittorrent-nox</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>It shows the initial setup instructions, including the default username and password (usually <code>admin</code> / <code>adminadmin</code>). It also tells you the URL to access the web interface, which is usually <code>http://&lt;your_rpi_ip&gt;:8080</code>.</p>
+<p>You can now open a browser and navigate to the qbitTorrent web interface, in my case <code>http://hiveseed.local:8080</code></p>
+<section id="create-a-background-service-for-the-qbittorrent-client" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-background-service-for-the-qbittorrent-client">Create a background service for the qbitTorrent client</h3>
+<p>When you run the command <code>qbittorrent-nox</code>, it starts the qbitTorrent client in the foreground, which means it blocks the terminal session. This is fine for testing, but not for a production setup.</p>
+<p>In the terminal, you see that the current session is “blocked” while the client is running (you can exit the client with <code>Ctrl + C</code>). But we want the client to run in the background, so we can use the terminal for other commands, and also that it continues to run after we log out from the SSH session. To do that, we need to …</p>
+<ol type="1">
+<li>Create a new user for the client to operate under (we’ll call it <code>qbuser</code>). Furthermore, we put our main user <code>pi</code> into the <code>qbuser</code> group, so that it can access the files created by the qbitTorrent client:</li>
+</ol>
+<div class="sourceCode" id="cb16"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> useradd <span class="at">-r</span> <span class="at">-m</span> qbuser</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> usermod <span class="at">-a</span> <span class="at">-G</span> qbuser pi</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#verify the group membership: you should see "qbuser" in the list of groups for the user "pi"</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">groups</span> pi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="1">
+<li>Add a new service that runs the qbitTorrent client in the background. For that, we use the nano editor to create a new systemd service file: <code>sh sudo nano /etc/systemd/system/qbittorrent.service</code></li>
+</ol>
+<p>Add the following content to that file (you can copy and paste it into the nano editor):</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[Unit]</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Description</span><span class="ot">=</span><span class="st">qBittorrent</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="dt">After</span><span class="ot">=</span><span class="st">network.target</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="kw">[Service]</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="dt">Type</span><span class="ot">=</span><span class="st">forking</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="dt">User</span><span class="ot">=</span><span class="st">qbuser</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="dt">Group</span><span class="ot">=</span><span class="st">qbuser</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="dt">UMask</span><span class="ot">=</span><span class="dv">002</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="dt">ExecStart</span><span class="ot">=</span><span class="st">/usr/bin/qbittorrent-nox -d --webui-port=8080</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="dt">Restart</span><span class="ot">=</span><span class="st">on-failure</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="kw">[Install]</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="dt">WantedBy</span><span class="ot">=</span><span class="st">multi-user.target</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>With everything entered, save the file by pressing <code>CTRL + X</code>, then <code>Y</code>(Yes), followed by the <code>ENTER</code> key.</p>
+<p>Start the qbitTorrent service and enable it to start on boot:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl start qbittorrent</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl enable qbittorrent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="configuring-qbittorrent-for-sciop" class="level3">
+<h3 class="anchored" data-anchor-id="configuring-qbittorrent-for-sciop">Configuring qbitTorrent for SciOp</h3>
+<p>First, we create the necessary directories on the external HDD and make them accessible for the <code>qbuser</code>:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mkdir /mnt/HDD1/Downloads</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mkdir /mnt/HDD1/Downloads/temp</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mkdir /mnt/HDD1/torrentfiles</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chmod <span class="at">-R</span> 777 /mnt/HDD1/Downloads</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>(We use a permissive <code>777</code> permission here for simplicity, but you might want to adjust it to be more secure, e.g.&nbsp;<code>775</code> or <code>770</code>, depending on your use case. As SciOp only shares public research data, this should be fine for now.)</p>
+<p>TODO:</p>
+<ul>
+<li>In the qbittorrent web interface, set the directories to <code>/mnt/HDD1/Downloads</code> (Downloads), <code>/mnt/HDD1/Downloads/temp</code> (incomplete downloads), and <code>/mnt/HDD1/torrentfiles</code> (torrent files).</li>
+<li>Limit the disk quota to, say, 80% of the HDD size</li>
+</ul>
+</section>
+</section>
+<section id="misc" class="level2">
+<h2 class="anchored" data-anchor-id="misc">Misc</h2>
+<section id="expansion-boards-housings" class="level3">
+<h3 class="anchored" data-anchor-id="expansion-boards-housings">Expansion boards / Housings</h3>
+<ul>
+<li><a href="https://geekworm.com/products/x301">Geekworm X301 2.5” SATA HDD/SSD NAS Expansion Board</a></li>
+<li>Thingiverse:
+<ul>
+<li><a href="https://www.thingiverse.com/thing:2813580">Raspberry Pi Zero W + 2.5” HDD</a>: Be careful, this is for the Zero (without “2”) - does it have a different form factor?</li>
+</ul></li>
+</ul>
+</section>
+<section id="resources-other-approaches" class="level3">
+<h3 class="anchored" data-anchor-id="resources-other-approaches">Resources / other approaches</h3>
+<ul>
+<li><a href="https://www.reddit.com/r/DataHoarder/comments/18j130b/tnasr1_tiny_nas_with_raid1_the_cheapest_and_smallest_">TNASR1 - Tiny NAS with RAID1 - the cheapest and smallest NAS for your backup storage needs based on the Raspberry Pi Zero 2 W with two 2.5” SATA HDDs in RAID1</a></li>
+<li>HDD partitioning: <a href="https://www.opendisplaycase.de/tutorials/festplatte-fuer-raspberry-pi-co.html">https://www.opendisplaycase.de/tutorials/festplatte-fuer-raspberry-pi-co.html</a></li>
+</ul>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/lmu-osc/safeguar.de-hackathon/edit/main/recipes/BT_on_Raspi.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/lmu-osc/safeguar.de-hackathon/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

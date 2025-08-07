@@ -1,0 +1,100 @@
+---
+title: "Rescueing Research Data with a BitTorrent Swarm"
+subtitle: "A Conceptual Introduction"
+format:
+  revealjs:
+    theme: default
+    slide-number: true
+license: "CC BY 4.0"
+---
+
+
+## What Problem Does BitTorrent Solve?
+
+- Traditional downloads rely on **one central server**, creating bottlenecks and single points of failure (or attack).
+- BitTorrent turns every downloader into an uploader, **crowd‑sourcing bandwidth and resilience**.
+
+---
+
+## How BitTorrent Works — Big Picture
+
+1. You grab a tiny **`.torrent` file** (or magnet link) that describes the content of a download package.
+2. Your BitTorrent client contacts a **tracker** or the **decentralized hash table (DHT)** to find peers.
+3. Each peer owns different **pieces** of the file.
+4. Everyone **trades pieces simultaneously** until all have the complete file.
+
+---
+
+## Key Roles & Terms
+
+::: {.smaller}
+| Term        | Conceptual Meaning                                                           |
+| ----------- | ---------------------------------------------------------------------------- |
+| **Peer**    | Any participant in the swarm (uploader *and* downloader)                     |
+| **Seeder**  | Peer with the **whole** file, only uploads                                   |
+| **Leecher** | Peer still downloading pieces                                                |
+| **Swarm**   | The full group of peers sharing a file                                       |
+| **Tracker** | Directory service that helps peers discover each other                       |
+| **Chunk**   | A piece of a larger file                                                     |
+| **DHT**     | Decentralized hash table: A lookup table replacing or complementing trackers |
+:::
+
+---
+
+## The Journey of a File (Simplified)
+
+1. **Creator seeds** the first copy.
+2. Early peers download pieces and begin sharing them onward.
+3. Swarm grows; download speeds **increase** because more pieces are available.
+4. When you finish, **keep seeding** to give back to the community.
+
+---
+
+## Why the Swarm Scales Well
+
+- **Bandwidth multiplies**: More peers ⇒ more uploaders.
+- **Resilience**: No single point of failure; if one peer leaves, others fill in.
+
+---
+
+## Legitimate Everyday Uses
+
+- Distributing large open‑source software (e.g., Linux ISOs).
+- Syncing datasets in research and archiving projects.
+- **NEW:** Sharing rescued public data threatened by deletion or censorship.
+
+---
+
+## BitTorrent’s Role in Data Rescue
+
+- **Multi‑terabyte archives** of endangered climate and health data are packaged as torrents, making them easy to replicate.
+- Distributed seeding creates **built‑in redundancy**: data survives even if some peers go offline.
+- Torrents can **prioritize rare pieces**, ensuring complete copies persist.
+- Communities on forums like **https://forum.safeguar.de** coordinate long‑term seeding campaigns.
+
+---
+
+## Challenges & Considerations
+
+- **Legal/Ethical:** Ensure you have the right to redistribute; focus on public‑domain or openly licensed datasets. [➙ Ensured by SciOp maintainers.]{.mark}
+- **Sustainability:** Swarms need seeders to stay healthy after initial interest fades.
+- **Verification:** How can we ensure the integrity of uploaded data sets?
+- **Findability:** As a fast emergency response, we 
+
+---
+
+## Quick Recap
+
+> BitTorrent isn’t just for faster downloads—it’s a **community safety net** for public knowledge. By breaking files into pieces and letting everyone trade them, the protocol makes large‑scale distribution **fast, resilient, and censorship‑resistant**, helping researchers preserve crucial data in uncertain times.
+
+---
+
+## Further Resources
+
+- Wikipedia – “BitTorrent”
+- Common Craft – “BitTorrent Explained”
+- Environmental Data & Governance Initiative (EDGI)
+- Data Refuge / Data Rescue Project
+- Internet Archive – “End‑of‑Term Web Archive”
+
+*This deck is licensed **CC BY 4.0**. Feel free to remix with attribution.*

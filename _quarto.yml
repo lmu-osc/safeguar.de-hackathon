@@ -1,0 +1,56 @@
+project:
+  type: website          # tells Quarto this is a site
+  pre-render: wget -nc https://raw.githubusercontent.com/lmu-osc/branding-resources/refs/heads/main/lmu-osc-custom.scss
+  post-render: rm lmu-osc-custom.scss
+  output-dir: docs       # where rendered HTML will land
+  render:
+    - "**/*.qmd"
+    - "!**/*.md"
+
+
+website:
+  title: "LMU OSC Safeguar.de Hackathon"
+  navbar:
+    background: primary
+    search: true
+    left:
+      - text: "Home"
+        href: index.qmd
+      - Schedule.qmd
+      - recipes/recipes.qmd
+      - slides/slides.qmd
+      - about.qmd
+    tools:
+      - icon: github
+        menu:
+          - text: Source Code
+            url:  https://github.com/lmu-osc/safeguar.de-hackathon
+          - text: Report a Bug
+            url:  https://github.com/lmu-osc/safeguar.de-hackathon/issues
+      - icon: house-heart
+        url: https://www.osc.uni-muenchen.de/index.html
+  sidebar:
+    style: "docked"
+  repo-url: https://github.com/lmu-osc/safeguar.de-hackathon
+  repo-actions: [edit, issue]
+  back-to-top-navigation: true
+  page-navigation: true
+  favicon: assets/LMU_OSC_favicon.jpg
+  margin-header: |
+    ![](/assets/LMU_OSC_logo.svg){width="175"}
+
+
+format:
+  html:
+    theme: 
+      - cosmo
+      - lmu-osc-custom.scss
+    css: 
+      - https://raw.githubusercontent.com/lmu-osc/branding-resources/refs/heads/main/lmu-osc-styles.css
+    toc: true
+    fontsize: 13pt
+    code-overflow: wrap
+    grid:
+      sidebar-width: 300px
+    include-in-header:
+      - file: matomo-analytics.html

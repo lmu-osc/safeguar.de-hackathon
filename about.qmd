@@ -1,0 +1,5 @@
+---
+title: "About"
+---
+
+This Hackathon is organized by Felix Schönbrodt, Philipp Sckopke and Henrik Schönemann, and hosted by the [LMU Open Science Center](https://www.osc.uni-muenchen.de/index.html).

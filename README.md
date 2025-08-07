@@ -2,7 +2,8 @@
 
 ## A hackathon to build resilient research data rescue nodes that backup at-risk research data
 
-***👉 [Signup Here!](https://surveys.osc.lmu.de/safeguard-hackathon) 👈***
+***👉 Go to the Hackathon's website: [https://lmu-osc.github.io/safeguar.de-hackathon/](https://lmu-osc.github.io/safeguar.de-hackathon/) 👈***
+
 
 The Trump administration has aggressively removed scientific and governmental research data from public access, purging thousands of web pages and datasets related to climate, health, demographics, LGBTQ + issues, and more — silently erasing vital knowledge that underpins scientific progress [[1]](https://www.ft.com/content/ccb0c850-f466-4b74-8c07-7d01230679a4) [[2]](https://www.newyorker.com/news/the-lede/the-data-hoarders-resisting-trumps-purge).
 
@@ -28,7 +29,10 @@ While some parts are technical, we welcome everyone to contribute to: Outreach, 
 
 *Let’s work together to preserve scientific knowledge and build a resilient, community-powered data infrastructure.*
 
-### 👉 Signup Here! [https://surveys.osc.lmu.de/safeguard-hackathon](https://surveys.osc.lmu.de/safeguard-hackathon) 👈
+<!-- 
+
+### 👉 Signup Here! [https://surveys.osc.lmu.de/safeguard-hackathon](https://surveys.osc.lmu.de/safeguard-hackathon) 👈 
+-->
 
 Contact: felix.schoenbrodt@psy.lmu.de
 
