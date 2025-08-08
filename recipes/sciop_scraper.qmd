@@ -1,0 +1,164 @@
+---
+title: "Installing the sciop-scraper script"
+description: "THis script simplifies downloading new data sets."
+---
+
+See https://codeberg.org/Safeguarding/sciop-scraping and https://neuromatch.social/@jonny/114777116685048952
+
+**Prerequisites**:
+
+- Have the qbittorrent installed on your machine
+- Create a login at [https://sciop.net](https://sciop.net)
+
+## Running sciop-scraping on macOS
+
+- Go to qBittorrent client -> Preferences -> Web UI -> Enable "Web User Interface (Remote control)"
+- Under "Authentication", add a user name and a password
+
+Install the `sciop-scraping` package. On my macOS, it expects a virtual environment:
+
+```sh
+mkdir ~/.venvs
+python3 -m venv ~/.venvs/sciop-scraping
+source ~/.venvs/sciop-scraping/bin/activate
+
+python3 -m pip install sciop-scraping
+python3 -m pip install sciop-cli
+
+# Get the version of sciop-scraping
+pip show sciop-scraping
+
+# Now log into sciop with your *sciop* credentials
+sciop-cli login
+
+# In this step, you will need your local *qBittorrent* credentials.
+sciop-cli client login
+
+# Enter these values:
+# Which type of client? (qbittorrent): qbittorrent
+# Username: YOUR_QBITTORRENT_USERNAME
+# Password: YOUR_QBITTORRENT_PASSWORD
+# Host: localhost
+# Port: 8080
+
+sciop-scrape chronicling-america --next
+```
+
+When you start the `sciop-scrape` command it will create a directory called `data` in your current working directory - so make sure that you start the script from a sensible location. 
+
+After finishing the download, it should automatically create a torrent file. 
+Now add the torrent file to your qBittorrent client:
+
+- File -> Add Torrent File ...
+- Select the torrent file in the `torrents` directory
+- In the following dialog, the wording is a bit confusing, because it assumes that you want to *download* the files of the torrent. But in this case, you already have all files and actually want to upload it. Therefore, you must select the `data/chronicling-america` directory as the save path.
+- Then the torrent will be added to your qBittorrent client. It first checks, which parts of the download already are present - and will realize that 100% are already there. It then will start seeding the files.
+
+**As a final step, add the torrent to Sciop**:
+
+- Go to [https://sciop.net/datasets/chronicling-america](https://sciop.net/datasets/chronicling-america).
+- In the table, click on the "name" header to sort the table by dataset name.
+- Find the name of your data set (in my example, `rp_enchanter_ver02`) and click on the "Upload" button in that row.
+
+
+
+## Running sciop-scraping on a Raspberry Pi
+
+We assume that you already [installed the qBittorrent client on your Raspberry Pi and enabled the Web UI](L1-RDRN_RPi.md).
+
+```sh
+# Make pip available
+sudo apt update
+sudo apt install python3-pip
+python3 -m pip install --upgrade pip
+
+# For securely storing the qBittorrent and sciop credentials
+python3 -m pip install keyrings.alt --break-system-packages
+
+# Install the sciop-scraping package
+python3 -m pip install sciop-scraping --break-system-packages
+
+# Add the installed commands to the PATH
+grep -qxF 'export PATH="$HOME/.local/bin:$PATH"' ~/.profile \
+  || echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.profile
+source ~/.profile
+
+# Now log into sciop with your *sciop* credentials
+sciop-cli login
+
+# In this step, you will need your *qBittorrent* credentials.
+sciop-cli client login
+
+# Enter these values:
+# Which type of client? (qbittorrent): qbittorrent
+# Username: YOUR_QBITTORRENT_USERNAME
+# Password: YOUR_QBITTORRENT_PASSWORD
+# Host: localhost
+# Port: 8080
+
+# Start scraping - in the correct download directory
+cd /mnt/HDD1/Downloads
+sciop-scrape chronicling-america --next
+
+```
+
+Don't be scared about the `--break-system-packages` option, it just tells `pip` to install the package globally (at the risk of breaking some dependencies). An alterantive would be to use a virtual environment, but that seemed overkill for this single-purpose RPi.
+
+### Running the scraping process in the background
+
+You can keep the scraping process running in the background, even after you log out of the SSH session, with the `screen` command:
+
+```sh
+# Install screen if not already installed
+sudo apt update && sudo apt install screen
+```
+
+```sh
+cd /mnt/HDD1/Downloads
+
+# Start a new screen session
+# give the session a name, e.g. "scrape"
+screen -S scrape 
+
+# Run your Python script
+sciop-scrape chronicling-america --next
+
+# You can also start a new scraping
+sciop-scrape chronicling-america --next --new
+
+
+# Detach from screen (Ctrl+A, then D)
+# You can now safely log out from SSH
+
+# To reattach later: Log back into your RPi via SSH and run:
+screen -r scrape
+```
+
+
+Some handy commands to check the status of the scraping:
+
+```sh
+cd /mnt/HDD1/Downloads
+
+# Check the number of files in the current directory
+find . -type f | wc -l
+
+# Show size of the current directory
+du -sh .
+
+# Show the last 10 lines of the output log
+tail -n 10 /mnt/HDD1/Downloads/output.log
+```
+
+## Troubleshooting
+
+❗️ On my first attempt, I moved the data directory to a different location while the scraping was not done. (The script was not running at that moment). Calling again `sciop-scrape chronicling-america --next` in the new location did resume the download (and it finished successfully), but the script signalled an error when trying to create the torrent file: "`Error trying to upload chronicling-america - rp-enchanter-ver02:
+division by zero`". If you look at the content of `quest-log.json`, you see that it stores the absolute path to the `data` directory, which was wrong after moving.
+
+If automatic creation fails, you can create the torrent file manually with the following command. In the example, I ran the command in the `data` directory and targeted the `chronicling-america/rp_enchanter_ver02` subdirectory:
+
+```sh
+sciop-cli torrent create -p chronicling-america/rp_enchanter_ver02 \
+  --comment "Downloaded with sciop-scrape v.0.1.11" \
+  -o torrents/rp_enchanter_ver02.torrent
+```

@@ -1,10 +1,9 @@
 ---
 title: "Convert old laptops into Research Data Rescue Nodes"
-format:
-  html:
-    toc: true
-    html-math-method: katex
+description: "Just electronic waste? Let's breath new life in these poor machines."
 ---
+
+![](img/old_laptops.jpeg)
 
 This recipe refers to the old DELL laptops from our department.
 

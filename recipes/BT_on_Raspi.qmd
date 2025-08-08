@@ -1,9 +1,6 @@
 ---
 title: "Creating a SciOp Research Data Rescue Node with a Raspberry Pi"
-format:
-  html:
-    toc: true
-    html-math-method: katex
+description: "How to set up a Raspi from scratch."
 ---
 
 This tutorial has been tried out on a *Raspberry Pi Zero 2 W*. This is the cheapest, smallest and most efficient Raspberry Pi that can run a full Linux distribution, and it has enough power to run a small NAS with an external HDD. However, the same steps should also work on other Raspberry Pi models, such as the Raspberry Pi 3 or 4, which have more processing power and memory.

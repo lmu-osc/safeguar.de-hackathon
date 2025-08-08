@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="How to set up a Raspi from scratch.">
 
 <title>Creating a SciOp Research Data Rescue Node with a Raspberry Pi – LMU OSC Safeguar.de Hackathon</title>
 <style>
@@ -144,6 +145,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Slides</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../instructors.html"> 
+<span class="menu-text">For instructors</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
@@ -223,6 +228,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 class="title">Creating a SciOp Research Data Rescue Node with a Raspberry Pi</h1>
 </div>
 
+<div>
+  <div class="description">
+    How to set up a Raspi from scratch.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -517,7 +527,7 @@ Device      Start       End   Sectors   Size Type
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/lmu-osc\.github\.io\/safeguar\.de-hackathon\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

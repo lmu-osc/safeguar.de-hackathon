@@ -1,6 +1,7 @@
 ---
 title: "Recipes"
 listing:
+  fields: [image, title, description]
   contents:
     - "*.qmd"
     - "!recipes.qmd"

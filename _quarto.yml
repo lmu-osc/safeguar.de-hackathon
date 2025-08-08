@@ -6,6 +6,7 @@ project:
   render:
     - "**/*.qmd"
     - "!**/*.md"
+    - "!participants/**"
 
 
 website:
@@ -19,6 +20,7 @@ website:
       - Schedule.qmd
       - recipes/recipes.qmd
       - slides/slides.qmd
+      - instructors.qmd
       - about.qmd
     tools:
       - icon: github

@@ -1,0 +1,35 @@
+---
+title: "For instructors"
+description: "How to prepare and run the hackathon"
+---
+
+## Preparation
+
+Little annoyances can slow down the pace sustantially - a good preparation helps a lot here.
+
+
+### Technical infrastructure
+
+Bring enough ...
+
+- power cords and multi outlets
+- WiFi (e.g., eduroam) usually does not work for newly installed Linux machines (missing certificates etc.), and the rooms often only have one LAN plug which needs to be multiplied. Therefore bring LAN cables and a switch, also for a fast connection. 
+- Prepare multiple bootable USB sticks with a Linux distribution. Go for a small one (installs faster).
+- For setting up new desktop computers: Don't forget to bring a display (including necessary power plugs), a keyboard and a mouse.
+- If you install Linux on multiple computers, they should all have the same user name and password. Otherwise you will get crazy maintaining them.
+
+### Organizational issues
+
+- Adhesive tapes for name tags
+- Prepare some coding issues ("easy starts") that you can give to coders.
+- Prepare and test demos (when you show a workflow) - they should work immediately.
+
+
+## Offboarding / Wrap-up
+
+- On each prepared laptop/computer: Stick a note on it that clearly describes the state of the machine, e.g.
+  - "Broken, dispose it."
+  - "Linux installed, but HDD not correctly partitioned yet."
+  - "Linux & qbittorrent client installed, ready to use."
+  - Maybe also write the user name and password on it (as there is no personal information on it, a breach would not be problematic)
+
